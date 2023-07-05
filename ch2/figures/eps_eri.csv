@@ -1,0 +1,7 @@
+inttime,min,med,max
+Conservative NF Imager,0,0,0
+Optimistic NF Imager,0.03606,0.036091,0.036099
+Conservative Spectrometer,0.009155,0.009791,0.010027
+Optimistic Spectrometer,0.061999,0.062249,0.062321
+Conservative WF Imager,0.692602,0.773259,0.818629
+Optimistic WF Imager,0.699044,0.777072,0.818703

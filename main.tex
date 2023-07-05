@@ -1,0 +1,153 @@
+%
+\documentclass[phd,tocprelim]{cornell}
+
+% tocprelim option must be included to put the roman numeral pages in the
+% table of contents
+%
+% The cornellheadings option will make headings completely consistent with
+% guidelines.
+%
+% This sample document was originally provided by Blake Jacquot, and
+% fixed up by Andrew Myers.
+%
+%Some possible packages to include
+\usepackage{graphicx,pstricks}
+\usepackage{graphics}
+\usepackage{moreverb}
+\usepackage{subfigure}
+\usepackage{epsfig}
+\usepackage{hangcaption}
+\usepackage{palatino}
+\usepackage{textcomp}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{gensymb}
+\usepackage{natbib}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{csvsimple}
+\usepackage{cleveref}
+
+
+\def\code#1{\texttt{#1}}
+%if you're having problems with overfull boxes, you may need to increase
+%the tolerance to 9999
+\tolerance=9999
+
+\bibliographystyle{abbrvnat}
+% \setcitestyle{authoryear,open={((},close={))}} %Citation-related commands
+% \bibliographystyle{plain}
+% \bibliographystyle{natbib}
+
+\renewcommand{\caption}[1]{\singlespacing\hangcaption{#1}\normalspacing}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+
+\title {Planning direct imaging observations of exoplanets with precursor data}
+\author {Corey Spohn}
+\conferraldate {August}{2023}
+\degreefield {Ph.D.}
+\copyrightholder{Corey Spohn}
+\copyrightyear{2023}
+
+\begin{document}
+
+\maketitle
+\makecopyright
+
+\begin{abstract}
+Exoplanets have become a major focus in astronomy over the last decade due to
+the rapid increase in the number of detected exoplanets. The detection of new
+exoplanets will drive the future of astronomy. Our understanding of planetary
+formation, the conditions for extraterrestrial life, and the location of
+habitable worlds are directly dependent on obtaining high-quality observations
+of exoplanets. There are a number of methods used to detect an exoplanet
+through direct and indirect information. Direct detection of an exoplanet is
+done by observing the exoplanet itself, while indirect detection is done by
+observing changes in the star. No single detection method can determine
+everything about an exoplanet, and each is biased toward certain kinds of
+planets. The work presented here revolves around the problem of directly
+detecting exoplanets that have been discovered indirectly 
+via the "radial velocity" method.
+
+The first part focuses on how to calculate the times when a planet with an
+orbit fitted via the radial velocity will be detectable for a direct imaging
+telescope. I analyze how to convert the orbit fits, estimate the probability of
+detection as a function of time, and identify two major failure modes inherent
+to the process.
+
+In the second part, I identify a problem with a traditionally used method of
+calculating the dimmest planet that can be detected for a given integration
+time, the total time a star is observed. In creating higher fidelity models of
+the signal to noise ratio for exoplanet detection, the signal and noise terms
+have become inseparable which makes it impossible to calculate the dimmest
+planet detectable as a function of integration time analytically. I demonstrate
+a numerical routine to solve this problem and use it to calculate the
+performance of the Roman Space Telescope's different observing scenarios on
+known exoplanets.
+
+Finally, I use that numerical routine to create a more accurate model to
+estimate the probability of directly imaging an exoplanet detected via the
+radial velocity method by accounting for additional sources of noise. I do this
+by calculating the dimmest planet detectable over a direct imaging instrument's
+possible planet-star separations, local zodiacal light values, and extra zodiacal
+light values then comparing those values to the estimated positions and
+brightnesses of planets consistent with the underlying radial velocity data. I
+validate the work with a framework I developed for full simulations of the
+process. The framework generates a set of radial velocity data for synthetic
+exoplanets, fits orbits to the radial velocity data, calculates the probability
+of detection, schedules observations, and simulates the observations. I show
+that my scheduling algorithm has a high success rate, proving that direct
+imaging observations of previously detected planets can be reliably scheduled.
+
+
+\end{abstract}
+
+\begin{biosketch}
+Corey doesn't like writing about himself in 3rd person and is therefore leaving
+all these things till the end.
+\end{biosketch}
+
+\begin{dedication}
+TODO
+\end{dedication}
+
+\begin{acknowledgements}
+TODO
+\end{acknowledgements}
+
+\contentspage
+\tablelistpage
+\figurelistpage
+
+\normalspacing \setcounter{page}{1} \pagenumbering{arabic}
+\pagestyle{cornell} \addtolength{\parskip}{0.5\baselineskip}
+
+\chapter{Introduction}
+\label{cha:intro}
+% \input{intro/intro.tex}
+
+\chapter{Scheduling Direct Imaging Observations Based on Radial Velocity Orbital Fits: Best Practices for Translating Orbits and Failure Modes}
+\label{cha:first_paper}
+\input{ch1/ch1.tex}
+
+\chapter{Coupling of Planet and Background Signal}
+\label{cha:coupling}
+\input{ch2/coupling.tex}
+
+\chapter{Accurate Estimation of Probability of Imaging Detection with Precursor Radial Velocity Data}
+\label{cha:accurate_pdet}
+\input{ch3/ch3.tex}
+
+\chapter{Scheduling with Simulated Precursor Data Collection for Direct Imaging Yield Modeling}
+\label{cha:sim_and_scheduling}
+\input{ch4/ch4.tex}
+
+% \chapter{Estimating the Covariances on Reported Planet Parameters (?)}
+
+\appendix
+\chapter{Chapter 1 of appendix}
+Appendix chapter 1 text goes here
+
+\bibliography{library}
+
+\end{document}
