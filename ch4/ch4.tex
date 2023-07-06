@@ -411,17 +411,18 @@ objective function.
 
 With a schedule created we can simulate observations of the synthetic planetary
 systems that created the synthetic RV data by importing the systems into an
-\code{EXOSIMS} SimulatedUniverse module and then running an \code{EXOSIMS} mission
-simulation. The same \code{EXOSIMS} input script that was used to generate the
-$P_\textrm{det}$ values is used for the mission simulation. This may come
-across as overfitting, given that we are using the same tool to estimate the
-probability of detection as we are to estimate the true detectability. Strictly
-speaking this is not incorrect, however mission simulation software is a
-continually evolving process of adding as much detail as is realistically
-possible to simulate a direct imaging mission and represents our current models
-of direct imaging. It will be a continually moving target to keep the
-probability of detection model accurate to our current yield tools. As they
-become more complex so will the probability of detection model.
+\code{EXOSIMS} SimulatedUniverse module and then running an \code{EXOSIMS}
+mission simulation. The same \code{EXOSIMS} input script that was used to
+generate the $P_\textrm{det}$ values is used for the mission simulation. This
+may come across as overfitting, given that we are using the same tool to
+estimate the probability of detection as we are to estimate the true
+detectability. Strictly speaking this is not incorrect, however mission
+simulation software is a continually evolving process of adding as much detail
+as is realistically possible to simulate a direct imaging mission and
+represents our current models of direct imaging. It will be a continually
+moving target to keep the probability of detection model up to date with our
+current understanding of what factors drive a planet's detectability. As they
+become more complex so must the probability of detection model.
 
 \section{Results}
 
@@ -577,7 +578,7 @@ until the direct imaging mission launch. Future work will be on more
 complicated scenarios, such as: how many EPRV observations of a planetary
 system are required to accurately calculate probability of detection, how does
 the planetary occurrence rate model impact which planets are ultimately fitted
-via radial velocity, is there there a benefit to prioritizing RV observations
-of stars with low completeness because a blind direct imaging search will be
-more sensitive to that star.
+via radial velocity, how do different RV orbit fitting tools compare, is there
+there a benefit to prioritizing RV observations of stars with low completeness
+because a blind direct imaging search will be more sensitive to that star.
 

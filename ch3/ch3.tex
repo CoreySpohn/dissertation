@@ -256,18 +256,20 @@ that scheduler observations are all made at the minimum zodiacal light for the
 target star. By allowing for observations at times near the minimum, the
 scheduler can likely make worthwhile trades between targets.
 
-\subsection{TODO:Exozodi calculations}
-Given a distribution of zodi values for a planetary system we could marginalize
-over it to calculate the completeness with respect to the possible zodi values
-of an unknown planetary system.
-\begin{equation}
-  c(t_\textrm{int}, n_\textrm{Z}) = 
-  \int_{n_\textrm{EZ,min}}^{n\textrm{EZ,max}} 
-  \int_{\alpha_\textrm{min}}^{\alpha_\textrm{max}} 
-  \int_{0}^{\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, n_\textrm{Z}, n_\textrm{EZ})}
-  f(\alpha, \Delta\textrm{mag}) \textrm{d}\alpha \textrm{d}\Delta\textrm{mag} \textrm{d}n_\textrm{EZ}
-  \label{eq:comp_integral}
-\end{equation}
+% \subsection{TODO:Exozodi calculations}
+% Given a distribution of zodi values for a planetary system we could marginalize
+% over it to calculate the completeness with respect to the possible zodi values
+% of an unknown planetary system.
+% \begin{equation}
+%   c(t_\textrm{int}, n_\textrm{Z}) = 
+%   \int_{n_\textrm{EZ,min}}^{n\textrm{EZ,max}} 
+%   \int_{\alpha_\textrm{min}}^{\alpha_\textrm{max}} 
+%   \int_{0}^{\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, n_\textrm{Z}, n_\textrm{EZ})}
+%   f(\alpha, \Delta\textrm{mag}) g(n_\textrm{EZ})
+%   \textrm{d}\alpha \textrm{d}\Delta\textrm{mag} \textrm{d}n_\textrm{EZ}
+%   \label{eq:comp_integral_nEZ}
+% \end{equation}
+% where $g(n_\textrm{EZ})$ is the density function of $n_\textrm{EZ}$.
 
 % The reason to include separation in the formulation of the photometric
 % constraint is shown in The traditional set of dimmest detectable

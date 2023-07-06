@@ -1,0 +1,157 @@
+\section{Motivation}
+\label{sec:motivation}
+
+An exoplanet is simply any planet that is not in our solar system. I want to
+motivate why we care about them because fundamentally they are very far from
+Earth, hard to find, and require very expensive instruments. 
+
+The astronomy community's interest in exoplanets has been growing as the number
+of planets detected increases. This interest is easy to demonstrate with the
+National Academies of Sciences 2020 decadal report which identified "Worlds and
+Suns in Context" as one of the three broad themes that compose "the most
+compelling science" in astronomy and astrophysics for the next 10 years
+\citep{nationalacademiesofsciencesPathwaysDiscoveryAstronomy2021}. They
+identify the discovery of habitable worlds as a priority area and motivate it
+as a drive to understand our place in the universe with questions such as: how
+rare is life, are there worlds that humans might one day live on, and what can we
+learn about Earth by studying other such planets? The answers to these questions
+will be profound and they can only be answered through considerable scientific
+effort.
+
+The study of non-habitable planets pose fewer existential questions, and are
+often overlooked because of it, but they too have an important role to play in
+our understanding of the universe. The process of planetary formation has
+interested scientists centuries before any planet had been found, in fact both
+Immanuel Kant and Pierre-Simon Laplace proposed theories \citep{Perryman2018a}
+in the 1700s. Our models today are built around a three stage process where a
+protoplanetary disk collapses, planetesimals form through accretion, and the
+planetesimals ultimately merge through gravity. This process is generally
+accepted but the specifics of the steps, particularly the accretion step, are
+not well understood \citep{Perryman2018a}. Every planet detected can be used to
+fine-tune our models of that formation process.
+
+There's also a societal purpose to the study of exoplanets, as fostering a
+public interest in science and education is beneficial to the well being of
+humans broadly. It is difficult to judge the impact of exoplanet science alone
+on the public's interest in science, but \citet{deegImpactExoplanet2018} notes
+that internet search activity shows a wide interest in exoplanet science,
+particularly for habitable worlds.
+
+% \textbf{Why care about exoplanets?}
+% - Life outside Earth
+% - Understanding the formation and evolution of planets
+% - The occurrence rates of planets
+% - Public interest in science
+% - Potentially habitable worlds
+%   - Understanding how rare Earth is as a motivator to keep it healthy
+
+\section{Exoplanet Detection Methods}
+\label{sec:detection_methods}
+
+\subsection{Indirect Detection} 
+
+The first unambiguous exoplanet detection occurred in 1995 through radial
+velocity observations of the star 51 Peg \citep{mayorJupitermassCompanion1995}.
+The radial velocity method works by observing the Doppler shift in a star's
+spectral lines and inferring the motion of the star around a planet-star center
+of mass. This method is biased towards massive planets on edge on orbits as the
+strength of a radial velocity signal is determined by the factor $M\sin{i}$,
+where $M$ is the planet's mass and $i$ is the inclination of the planet's
+orbit. The transit photometry exoplanet detection technique finds planets by
+carefully monitoring the light coming from planets and watching for dips that
+occur when a planet passes in front of the star. The radius and orbital period
+of an exoplanet can be determined with this technique and it is therefore
+biased towards large radius planets that are close to their star. The
+astrometry detection method is done through extremely precise measurements of a
+star's position in the planet of the sky \citep{Perryman2018a}. With the
+precise movement of the star the corresponding motion of the planets can be
+inferred.
+
+Collectively, the transit technique has detected the most planets. At the time
+of writing the NASA Exoplanet Archive shows 4114 planets detected via transit,
+1044 detected via radial velocity, and two detected with astrometry. These
+numbers are steadily increasing and missions such as TESS and Gaia will
+increase the number of known exoplanets by the thousands \citep{Perryman2018a}
+\citep{Huang2018}.
+
+% - Microlensing
+
+\subsection{Direct Detection}
+
+Direct detection of exoplanets is the process of collecting light directly from
+the exoplanet. This can be done when the planet is hot enough to emit light on
+its own or when light from the star reflects off of the planet. Direct
+detection is biased towards large radius planets at wide separations. Because
+of this direct imaging complements the other techniques by broadening the range
+of orbital periods that we are able to detect. A further benefit of direct
+imaging is its ability to obtain detailed spectral information on planets that
+are not detectable via the transit technique. Gathering spectral information
+is of primary interest because it allows us to study the atmosphere of the
+planet and search for signs of water and biosignatures.
+
+% \textbf{Why focus on radial velocity for direct imaging}
+
+\section{Method Outlook}
+\label{sec:EPRV_HWO}
+% Make Plot of detections on the Exoplanet Archive
+
+This dissertation will focus on the synergy of using radial velocity data to
+predict the best times to make observations of exoplanets with a direct imaging
+instrument. This combination was chosen due to the difficulty of getting
+spectral information on Earth-like exoplanets. The 2020 decadal report
+recommended a 6 meter space-based telescoped optimized for directly detecting
+and spectrally characterizing habitable exoplanets
+\citep{nationalacademiesofsciencesPathwaysDiscoveryAstronomy2021}. This form of
+mission was studied as a part of the HabEx and LUVOIR mission concepts
+\citep{gaudiHabitableExoplanetObservatory2020,TheLUVOIRTeam2019}. Both the
+HabEx and LUVOIR teams recommended considerable effort be put into finding
+habitable worlds through other detection methods before the launch of a
+space-based direct imaging mission. The main reason for this is simply that it
+is easier to detect a planet when you now approximately where it will be.
+Additionally, if a star is observed and no Earth-like planet is found then
+that star can be removed from the direct imaging mission's list of stars
+to observe, or target list.
+
+Earth-like planets around Sun-like stars are difficult to detect for any
+method. They have a very low probability of transiting, astrometry detection of
+an Earth-like planet can only be done with a space-based mission two orders of
+magnitude more sensitive than the Gaia mission, and the radial velocity method
+is similarly approximately two orders of magnitude
+away\citep{gaudiHabitableExoplanetObservatory2020}. However, the radial
+velocity method can feasibly make the required improvements with ground based
+observatories and many efforts to reach the required sensitivity are in
+progress\citep{Fischer2016a}. The radial velocity precision required to 
+detect an Earth-like planet is approximately 10 cm/s and a number of instruments
+have recently demonstrated on-sky radial velocity precision under 1 m/s \citep{maroonx2021,
+guptaTargetPrioritization2021,Pepe2021}. Additionally, the Extreme Precision
+Radial Velocity initiative report from 2021 concluded that there are multiple
+plausible system architectures that can detect Earth-like exoplanets under
+the right conditions.
+
+% \section{Yield modeling}
+% \textbf{Why create a framework for full simulations}
+
+\section{Dissertation Overview}
+\label{sec:dis_overview}
+
+In this work I present what I have done to improve our chances of directly
+detecting an exoplanet that has been detected with the radial velocity method.
+In \Cref{cha:first_paper} I begin by analyzing what orbital information is
+missing, how to fill the information, how to use that information to estimate
+the probability of a telescope directly detecting that planet, and what can go
+wrong when doing so. Then in \Cref{cha:coupling} I describe a method to
+accurately estimate what the dimmest planet a direct imaging mission can detect
+in the likely scenario where the planet's brightness has a subtle impact on the
+amount of observational noise. With that method in \Cref{cha:accurate_pdet} to
+expand the probability of detection method to incorporate more factors to
+describe more realistic observation scenarios. Then in
+\Cref{cha:sim_and_scheduling}, I validate the probability of detection
+calculations with a software tool I created that manages the creation of
+synthetic planetary systems, the radial velocity observation process on the
+synthetic planetary systems, full orbital fitting of the collected radial
+velocity data, calculating the probability of detecting the synthetic planets
+that were fitted, scheduling observations based on the probability of
+detection, and finally simulating direct imaging observations based on the
+created schedule to determine its yield.
+
+
