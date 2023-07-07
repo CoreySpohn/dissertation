@@ -315,14 +315,48 @@ observations to determine an exoplanet's orbit to 10\%
 exists \citep{gaudiHabitableExoplanetObservatory2020}. Further, it's important
 to try and space out observations of a planet, as gathering 3 observations of
 an Earth-like planet on 3 consecutive days will result in a considerably worse
-fit than 3 observations made months apart.
+fit than 3 observations made months apart. We use this information to drive our
+scheduling task, attempting to get decent orbital coverage of as many fitted
+planets as possible.
+
+\subsubsection{The CP-SAT Solver}
+
+Scheduling is done with a constraint programming tool, the CP-SAT solver from
+OR-Tools\citep{perronORTools2022}. The methods behind the CP-SAT solver are
+difficult to cite as it is developed by Google for internal use, but the code
+itself is open source. Most of the information contained in this section has
+been gathered by searching through the OR-Tools documentation
+\url{developers.google.com/optimization}, the project GitHub, and various video
+presentations given by the developers. At its core the CP-SAT is built to
+transform a constraint programming (CP) problem into a satisfiability (SAT)
+problem because better solvers have been developed for SAT problems. 
+
+Constraint programming is defined by a set of variables and a set of
+constraints. Each variable is assigned a finite range of values and constraints
+are made on some subset of all the defined variables
+\citep{shawConstraintProgramming2002}. The most common constraints are equality
+relations between variables, however modern solvers provide many useful
+abstractions such as conditional constraints, absolute value constraints, and
+multiplication of variable constraints. Constraint programming is built around
+the idea of finding a feasible solution rather than a necessarily optimal
+solution because it is meant to work with very large sets of possible solutions
+where finding an optimal solution is not computationally feasible. This does
+not mean that it is unable to handle optimization though, as an objective
+function to be minimized or maximized can be defined based on the variables in
+the problem.
+
+% Satisfiability problems consist of finding a variable assignement  fundamental 
+
+% Using the CP-SAT solver is a combination of constraint programming, metaheuristics,
+
+
+% There is frustratingly little documentation how exactly the CP-SAT solver
+% works, as the developer recommendation is to a YouTube video.
+
 
 \subsubsection{Decision variables}
 
-We use this information to drive our scheduling task, attempting to get decent
-orbital coverage of as many fitted planets as possible. This scheduling is done
-with constraint programming, using the CP-SAT solver from
-OR-Tools\citep{perronORTools2022}. Our decision variables are booleans $x_{i,
+Our decision variables are booleans $x_{i,
 t, t_{\textrm{int}}}$ that are true (one) when star $i$ is observed starting at
 time $t$ with integration time $t_{\textrm{int}}$, and false (zero) otherwise.
 Large scheduling problems cannot be practically solved with continuous
