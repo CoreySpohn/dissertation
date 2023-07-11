@@ -64,12 +64,6 @@ planets for a range of observing scenarios that the Roman Space Telescope's
 coronagraph instrument (Roman CGI) will have. Ultimately we show the ten
 highest completeness planets for the Roman CGI.
 
-% show how the method
-% described can be used to generate observing mode specific completeness and
-% probability of detection as functions of the integration time, WA, zodiacal
-% light, and extra zodiacal light.
-
-
 
 \section{Coupling of background and planet signal} % (fold)
 \label{sec:Coupling of background and planet signal}
@@ -79,96 +73,13 @@ The optical system laid out in \citet{keithlyOptimalScheduling2020} to create
 \citep{Nemati2014, nematiSensitivityWFIRST2017, Nemati2020a}, works on the
 assumption that the noise sources included in $C_{\textrm{b}}$ had no
 dependence on the planet's $\Delta\textrm{mag}$. However, in newer formulations
-of the Roman CGI exposure time calculator (ETC), which still use
-equation~\ref{eq:dean_inttime}, there is a dependence. Every frame results in
-readout and clock-induced charge noise, and a brighter signal will require a
-shorter exposure time per frame, resulting in more total frames and therefore
-more total readout and clock-induced charge noise. The newer form of the ETC is
-implemented in the \code{EXOSIMS} package's \code{Nemati\_2019} module
-\cite{savranskyWFIRSTAFTACoronagraphScience2015} which is an adaptation of the
-Roman CGI team's internal ETC.
-
-This dependence is somewhat hidden, but it begins with equation 48 of \citet{Nemati2020a},
-\begin{equation}
-  \sigma_{\textrm{det}}^2 = i_d m_{\textrm{pix}} t + q_\textrm{CIC} m_{\textrm{pix}} \frac{t}{t_{\textrm{fr}}}
-  + m_{\textrm{pix}} \frac{t}{t_{\textrm{fr}}} \left( \frac{\sigma_{\textrm{rd}}}{G_{\textrm{EM}}}\right)^2
- \label{eq:bijan_detector_noise}
-\end{equation}
-where $\sigma_{\textrm{det}}^2$ is the CCD detector noise variance, $i_d$ is
-the detector dark current, $m_{\textrm{pix}}$ is the number of detector pixels
-that the planet signal covers, $t_\textrm{int}$ is the integration time, $q_{\textrm{CIC}}$
-is the CCD clock-induced charge, $t_{\textrm{fr}}$ is the frame duration,
-$\sigma_{\textrm{rd}}$ is read noise, and $G_{\textrm{EM}}$ is the electron
-multiplication gain. $\sigma_{\textrm{det}}^2$ is one of the four random
-noise components for the target star in $C_{\textrm{b},i}$, see \citet{Nemati2020a} for more details.
-The $t_\textrm{int}/t_{\textrm{fr}}$ terms in equation~\ref{eq:bijan_detector_noise} are
-equal to the number of frames collected over the full integration time $t_\textrm{int}$,
-which is where the coupling between the planet and noise ultimately comes from.
-The way that the frame time calculation has been implemented in the Roman ETC
-is
-\begin{equation}
-  t_{\textrm{fr}} = \frac{0.1}{DC +\left(r_{\textrm{pl,ia}}+r_{\textrm{zo,ia}}+r_{\textrm{sp,ia}}\right)/m_{\textrm{pix}}}
-  \label{eq:bijan_frame_duration}
-\end{equation}
-where $DC$ is the detector dark current noise per second, $r_{\textrm{pl,ia}}$ is
-the planet electron count rate at the image area per pixel per second,
-$r_{\textrm{zo,ia}}$ is the zodiacal light electron count rate at the image area
-per pixel per second, $r_{\textrm{sp,ia}}$ is the speckle electron count rate at
-the image area per pixel per second, and is cut to be between 1 and 80 seconds. This
-is not in literature and was pulled from a private GitHub repository that hosts the
-ETC.
-
-The equation for $r_{\textrm{pl,ia}}$ is
-\begin{equation}
-  r_{\textrm{pl,ia}} = F_p f_{\textrm{SR}} A_{\textrm{col}} \textrm{QE} \tau_{\textrm{PS}}
-  \label{eq:bijan_planet_ia}
-\end{equation}
-where $F_p$ is the planet's flux, $f_{\textrm{SR}}$ is the fraction of light in
-the signal region, $A_{\textrm{col}}$ is the collecting area of the primary, QE
-is the quantum efficiency, and $\tau_{\textrm{PS}}$ is the throughput of a
-point source. By expressing the planet's flux in terms of the star's flux $F_s$
-and $\Delta\textrm{mag}$,
-\begin{equation}
-  F_p = F_s 10^{-\Delta\textrm{mag}/2.5},
-  \label{eq:fp_dmag}
-\end{equation}
-we see how the $\Delta\textrm{mag}$ term ends up in the calculation of
-$C_{\textrm{b}}$. If the $r_{\textrm{pl,ia}}$ term was removed from
-equation~\ref{eq:bijan_planet_ia} the coupling would be removed, but it is
-prudent to account for the planet's signal, especially for observing scenarios
-which consider bright planets.
-
-To complicate the relationship further, the $t_{\textrm{fr}}$ value impacts the
-number of cosmic ray hits per frame and the charge transfer efficiency. Those
-end up impacting the detector degradation (dQE) which then impacts the count
-rates for the planet, zodiacal light, and extra zodiacal light. This makes it
-impossible to invert the exposure time calculator and isolate
-$\Delta\textrm{mag}$ as a function of integration time analytically. Our approach,
-laid out in Section~\ref{sec:numerically_inverting_ETC} explains our numerical
-solution with root finding.
-
-Figure~\ref{fig:CGI_coupling} shows the errors that occur when trying to
-calculate the $\Delta\textrm{mag}_0$ values with equation~\ref{eq:dean_dmag},
-the colored circles. The true $\Delta\textrm{mag}$ values, the empty circles,
-deviate significantly and in many cases would result in underestimating
-$\Delta\textrm{mag}_0$. The direction of the error is driven by how close the
-$\Delta\textrm{mag}_0$ is to the saturation $\Delta\textrm{mag}$, or the
-$\Delta\textrm{mag}$ at which $\left(\textrm{SNR} \cdot C_{\textrm{sp}}\right)^2$ becomes greater than $C_{\textrm{p}}$ in
-equation~\ref{eq:dean_inttime} and the calculated integration times become
-negative.
-
-% Further, the impact on completeness is incredibly difficult to characterize,
-% since that the zodiacal light terms are involved.
-
-% Figure~\ref{fig:dMag_error} shows the problem of trying to calculate
-% $\Delta\textrm{mag}$ without accounting for the coupling. The ``Assumed $\Delta
-% \textrm{mag}$'' refers to the user-inputted $\Delta \textrm{mag}$ that is used
-% when calculating $C_{\textrm{b}, i}$. The highest assumed $\Delta \textrm{mag}$
-% of 15 shows the worst performance, while the lowest assumed $\Delta
-% \textrm{mag}$ of 25 has relatively small errors. This coupling is significant
-% in many cases, and makes it impossible to analytically solve for
-% $\Delta\textrm{mag}$ as a function of integration time. Therefore we must
-% approach it as a numerical problem.
+of the Roman CGI exposure time calculator (ETC) there is a dependence. Every
+frame results in readout and clock-induced charge noise, and a brighter signal
+will require a shorter exposure time per frame, resulting in more total frames
+and therefore more total readout and clock-induced charge noise. The newer form
+of the ETC is implemented in the \code{EXOSIMS} package's \code{Nemati\_2019}
+module \cite{savranskyWFIRSTAFTACoronagraphScience2015} which is an adaptation
+of the Roman CGI team's internal ETC.
 
 \begin{figure}
   \begin{center}
@@ -195,6 +106,109 @@ negative.
   as in Figure~\ref{fig:CGI_coupling}.}
   \label{fig:ETC_dMag_function}
 \end{figure}
+
+% \section{Coupling rewrite} % (fold)
+% \label{sec:Coupling rewrite}
+% STANDARDIZE TO ALL OF NEMATI 2020
+The equation of signal-to-noise to noise ratio for the Roman CGI is modeled as
+\begin{equation}
+  \textrm{SNR} = \frac{r_\textrm{pl}t}{\sqrt{r_n t + r^2_{\Delta I} t^2}}
+  \label{eq:2020SNR}
+\end{equation}
+where SNR is the signal-to-noise ratio, $r_\textrm{pl}$ is the planet count
+rate, $t$ is the integration time, $r_n$ is the random variance count rate
+(background), and $r_{\Delta I}$ is the residual speckle rate, or the count
+rate of speckle noise after post processing effects. To calculate an exposure
+time for a specific SNR, planet, and star we can keep the SNR, $r_\textrm{pl}$,
+$r_n$, and $r_{\Delta I}$ values constant and solve for $t$ to get the equation 
+\begin{equation}
+  t = \frac{\textrm{SNR}^2 r_n}{r^2_\textrm{pl} - \textrm{SNR}^2 r^2_{\Delta I}}.
+  \label{eq:2020t}
+\end{equation}
+In a similar manner to calculating the exposure time, the limiting $r_\textrm{pl}$
+has traditionally been calculated by solving \Cref{eq:2020SNR} as
+\begin{equation}
+  r_\textrm{pl} = \frac{\textrm{SNR} \sqrt{r_n t + r^2_{\Delta I} t^2}}{t}
+  \label{eq:2020rpl}
+\end{equation}
+which is a useful quantity because it is the lowest planet count rate that meets
+the required SNR. If we can isolate $r_\textrm{pl}$ then we can calculate a
+$\Delta\textrm{mag}$ because
+\begin{equation}
+  r_\textrm{pl} = F_\lambda \Delta \lambda 10^{-0.4 \Delta \textrm{mag}} F_s A \tau_\textrm{pl} \eta
+  \label{eq:2020rpl_expand}
+\end{equation}
+where $F_\lambda$ is the spectral flux, $\Delta \lambda$ is the filter
+bandwidth, $F_\textrm{s}$ is the star's flux, $A$ is the collecting area,
+$\tau_\textrm{pl}$ is the throughput for the planet light, and $\eta$ is the
+detector quantum efficiency. If we have a specific $r_\textrm{pl}$ that
+represents the lowest possible value that reaches the required SNR, what
+\Cref{eq:2020rpl} represents, then solving \Cref{eq:2020rpl_expand} for
+$\Delta\textrm{mag}$ represents $\Delta\textrm{mag}_0$.
+
+The trouble arises from the fact that in the newer formulation of the optical
+system we the $r_n$ term is now dependent on $r_\textrm{pl}$ in a significant
+fashion. The equation is
+\begin{equation}
+  r_n = r_\textrm{pl} + k_\textrm{sp} r_\textrm{sp} + k_\textrm{lz} r_\textrm{lz}+ k_\textrm{ez} r_\textrm{ez}+ k_\textrm{det} r_\textrm{det}
+  \label{eq:rn}
+\end{equation}
+where $r_\textrm{sp}$ is the speckle count rate, $r_\textrm{lz}$ is the count
+rate of local zodiacal light, and $r_\textrm{ez}$ is the count rate of
+exozodical light, $r_\textrm{det}$ is the count rate of detector noise, and the
+$k_x$ terms are variance enhancement factors for each count rate to account for
+the effects of reference differential imaging. This has a clear dependence on
+$r_\textrm{pl}$ but it has a further dependence through the $r_\textrm{det}$ term
+where
+\begin{equation}
+  r_\textrm{det} =  m_\textrm{pix}\left( i_d +
+  \frac{q_\textrm{CIC}}{t_\textrm{fr}} +
+\frac{\sigma^2_\textrm{rd}}{t_\textrm{fr} G_\textrm{EM}} \right)
+  \label{eq:rdet}
+\end{equation}
+where $i_d$ is the detector dark current, $m_{\textrm{pix}}$ is the number of
+detector pixels that the planet signal covers, $q_{\textrm{CIC}}$ is the CCD
+clock-induced charge, $t_{\textrm{fr}}$ is the frame duration,
+$\sigma_{\textrm{rd}}$ is read noise, and $G_{\textrm{EM}}$ is the electron
+multiplication gain. $\sigma_{\textrm{det}}^2$ is one of the four random noise
+components for the target star in $C_{\textrm{b},i}$, see \citet{Nemati2020a}
+for more details. The $1/t_{\textrm{fr}}$ terms in
+equation~\ref{eq:rdet} represent that the $q_\textrm{CIC}$
+and $\sigma_\textrm{rd}$ terms are dependent on how many frames are taken over
+the course of an observation. The equation for $t_\textrm{fr}$ is 
+\begin{equation}
+  t_{\textrm{fr}} = \frac{0.1}{DC +\left(r_{\textrm{pl}}+r_{\textrm{lz}}+r_{\textrm{ez}}+r_{\textrm{sp}}\right)/m_{\textrm{pix}}}
+  \label{eq:bijan_frame_duration}
+\end{equation}
+where $DC$ is the detector dark current noise per second. The value of
+\Cref{eq:bijan_frame_duration} is cut to be between 1 and 80 seconds.
+\Cref{eq:bijan_frame_duration} is not in literature and was pulled from a
+private GitHub repository that hosts the ETC.
+
+To complicate the relationship further, the $t_{\textrm{fr}}$ value impacts the
+number of cosmic ray hits per frame and the charge transfer efficiency. Those
+end up impacting the detector degradation which then impacts all count
+rates. 
+By making $r_n$ a complex function of $r_\textrm{pl}$ we are unable to isolate
+it as a function of SNR, $r_n$, $r_{\Delta I}$, and $t$ analytically. Therefore
+to calculate the $\Delta\textrm{mag}_0$ for a specific observing scenario we
+need to invert the relationship numerically and to find the $\Delta\textrm{mag}$
+that corresponds to the dimmest planet that can be detected.
+
+Figure~\ref{fig:CGI_coupling} shows the errors that occur when trying to
+calculate the $\Delta\textrm{mag}_0$ values without accounting for the rate
+coupling. The colored circles are represent calculating $\Delta\textrm{mag}$
+from \Cref{eq:2020rpl,eq:2020rpl_expand} and using a constant
+$\Delta\textrm{mag}$ value for the $r_n$ term. The true $\Delta\textrm{mag}$
+values, the empty circles, deviate significantly and in many cases would result
+in underestimating $\Delta\textrm{mag}_0$. The direction of the error is driven
+by how close the $\Delta\textrm{mag}_0$ is to the saturation
+$\Delta\textrm{mag}$, or the $\Delta\textrm{mag}$ at which $\left(\textrm{SNR}
+\cdot r_{\Delta I}\right)^2$ becomes greater than $r_{\textrm{pl}}$ in
+equation~\ref{eq:2020t} and the calculated integration times become
+negative.
+
+% section sec:Coupling rewrite (end)
 
 
 \section{Numerically Inverting the Roman CGI Exposure Time Calculator}
@@ -457,3 +471,85 @@ using the Imaging Mission Database a researcher can see the sensitivity of the
 various Roman CGI observing modes to different known planets.
 
 % sec:Coupling of background and planet signal (end)
+
+% This dependence is somewhat hidden, but it begins with equation 48 of \citet{Nemati2020a},
+% \begin{equation}
+%   \sigma_{\textrm{det}}^2 = i_d m_{\textrm{pix}} t + q_\textrm{CIC} m_{\textrm{pix}} \frac{t}{t_{\textrm{fr}}}
+%   + m_{\textrm{pix}} \frac{t}{t_{\textrm{fr}}} \left( \frac{\sigma_{\textrm{rd}}}{G_{\textrm{EM}}}\right)^2
+%  \label{eq:bijan_detector_noise}
+% \end{equation}
+% where $\sigma_{\textrm{det}}^2$ is the CCD detector noise variance, $i_d$ is
+% the detector dark current, $m_{\textrm{pix}}$ is the number of detector pixels
+% that the planet signal covers, $t_\textrm{int}$ is the integration time, $q_{\textrm{CIC}}$
+% is the CCD clock-induced charge, $t_{\textrm{fr}}$ is the frame duration,
+% $\sigma_{\textrm{rd}}$ is read noise, and $G_{\textrm{EM}}$ is the electron
+% multiplication gain. $\sigma_{\textrm{det}}^2$ is one of the four random
+% noise components for the target star in $C_{\textrm{b},i}$, see \citet{Nemati2020a} for more details.
+% The $t_\textrm{int}/t_{\textrm{fr}}$ terms in equation~\ref{eq:bijan_detector_noise} are
+% equal to the number of frames collected over the full integration time $t_\textrm{int}$,
+% which is where the coupling between the planet and noise ultimately comes from.
+% The way that the frame time calculation has been implemented in the Roman ETC
+% is
+% \begin{equation}
+%   t_{\textrm{fr}} = \frac{0.1}{DC +\left(r_{\textrm{pl,ia}}+r_{\textrm{zo,ia}}+r_{\textrm{sp,ia}}\right)/m_{\textrm{pix}}}
+%   \label{eq:bijan_frame_duration}
+% \end{equation}
+% where $DC$ is the detector dark current noise per second, $r_{\textrm{pl,ia}}$ is
+% the planet electron count rate at the image area per pixel per second,
+% $r_{\textrm{zo,ia}}$ is the zodiacal light electron count rate at the image area
+% per pixel per second, $r_{\textrm{sp,ia}}$ is the speckle electron count rate at
+% the image area per pixel per second, and is cut to be between 1 and 80 seconds. This
+% is not in literature and was pulled from a private GitHub repository that hosts the
+% ETC.
+
+% The equation for $r_{\textrm{pl,ia}}$ is
+% \begin{equation}
+%   r_{\textrm{pl,ia}} = F_p f_{\textrm{SR}} A_{\textrm{col}} \textrm{QE} \tau_{\textrm{PS}}
+%   \label{eq:bijan_planet_ia}
+% \end{equation}
+% where $F_p$ is the planet's flux, $f_{\textrm{SR}}$ is the fraction of light in
+% the signal region, $A_{\textrm{col}}$ is the collecting area of the primary, QE
+% is the quantum efficiency, and $\tau_{\textrm{PS}}$ is the throughput of a
+% point source. By expressing the planet's flux in terms of the star's flux $F_s$
+% and $\Delta\textrm{mag}$,
+% \begin{equation}
+%   F_p = F_s 10^{-\Delta\textrm{mag}/2.5},
+%   \label{eq:fp_dmag}
+% \end{equation}
+% we see how the $\Delta\textrm{mag}$ term ends up in the calculation of
+% $C_{\textrm{b}}$. If the $r_{\textrm{pl,ia}}$ term was removed from
+% equation~\ref{eq:bijan_planet_ia} the coupling would be removed, but it is
+% prudent to account for the planet's signal, especially for observing scenarios
+% which consider bright planets.
+
+% To complicate the relationship further, the $t_{\textrm{fr}}$ value impacts the
+% number of cosmic ray hits per frame and the charge transfer efficiency. Those
+% end up impacting the detector degradation (dQE) which then impacts the count
+% rates for the planet, zodiacal light, and extra zodiacal light. This makes it
+% impossible to invert the exposure time calculator and isolate
+% $\Delta\textrm{mag}$ as a function of integration time analytically. Our approach,
+% laid out in Section~\ref{sec:numerically_inverting_ETC} explains our numerical
+% solution with root finding.
+
+% Figure~\ref{fig:CGI_coupling} shows the errors that occur when trying to
+% calculate the $\Delta\textrm{mag}_0$ values with equation~\ref{eq:dean_dmag},
+% the colored circles. The true $\Delta\textrm{mag}$ values, the empty circles,
+% deviate significantly and in many cases would result in underestimating
+% $\Delta\textrm{mag}_0$. The direction of the error is driven by how close the
+% $\Delta\textrm{mag}_0$ is to the saturation $\Delta\textrm{mag}$, or the
+% $\Delta\textrm{mag}$ at which $\left(\textrm{SNR} \cdot C_{\textrm{sp}}\right)^2$ becomes greater than $C_{\textrm{p}}$ in
+% equation~\ref{eq:dean_inttime} and the calculated integration times become
+% negative.
+
+% Further, the impact on completeness is incredibly difficult to characterize,
+% since that the zodiacal light terms are involved.
+
+% Figure~\ref{fig:dMag_error} shows the problem of trying to calculate
+% $\Delta\textrm{mag}$ without accounting for the coupling. The ``Assumed $\Delta
+% \textrm{mag}$'' refers to the user-inputted $\Delta \textrm{mag}$ that is used
+% when calculating $C_{\textrm{b}, i}$. The highest assumed $\Delta \textrm{mag}$
+% of 15 shows the worst performance, while the lowest assumed $\Delta
+% \textrm{mag}$ of 25 has relatively small errors. This coupling is significant
+% in many cases, and makes it impossible to analytically solve for
+% $\Delta\textrm{mag}$ as a function of integration time. Therefore we must
+% approach it as a numerical problem.
