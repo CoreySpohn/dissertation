@@ -425,8 +425,13 @@ planet orbits as we can. Because of this we set up an integer variable for each
 fitted planet, $b_\textrm{planet}$, that is equal to the number of observations
 of the planet's star that occur at a time when the fitted planet is at or above
 the user-set $P_\textrm{det}$ threshold. The $b_\textrm{planet}$ variables are
-bounded at the user-input number of observations per planet. The final
-objective function is stated as 
+bounded at the user-input number of observations per planet and are calculated
+using a channeling constraint
+\begin{equation}
+  b_j = \Sigma_{t, t_\textrm{int}}(x_{i, t, t_\textrm{int}}P_{\textrm{det}, j, t, t_\textrm{int}} >= P_\textrm{thresh})
+  \label{eq:bplanet}
+\end{equation}
+and is cut to be between 0 and 3. The final objective function is stated as 
 \begin{equation}
   \textrm{max}{\left\{ \Sigma\left(W \cdot
   b_\textrm{planet}\right) - \Sigma\left( c_\textrm{active}\right) - \Sigma\left(
