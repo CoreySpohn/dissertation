@@ -91,8 +91,8 @@ of the Roman CGI team's internal ETC.
   used for this plot is one day of integration time, the "OPTI\_NF\_Imager"
   observing mode from the Roman CGI ETC, the target planet is fixed to an
   angular separation of $0.2955"$, zodiacal light surface brightness is fixed to
-  $6.31\cdot10^{-10} (1/")^2$, and extra zodiacal light surface brightness is
-  fixed to $1.36\cdot10^{-9} (1/")^2$. The target stars included are the defaults
+  $23 (\textrm{mag}/")^2$, and exozodiacal light surface brightness is
+  fixed to $22 (\textrm{mag}/")^2$. The target stars included are the defaults
   in the Roman CGI ETC.}
   \label{fig:CGI_coupling}
 \end{figure}
@@ -276,11 +276,11 @@ module in the \code{EXOSIMS} package. The minimization function itself
 is \code{SciPy}'s \citep{virtanenSciPyFundamental2020} implementation of the
 bounded scalar minimization routine from \citet{forsytheComputerMethods1977}
 with a tolerance of $10^{-8}$ on $f(\Delta\textrm{mag}, i)$. The function
-requires as input the local and extra zodiacal light surface brightnesses,
+requires as input the local and exozodiacal light surface brightnesses,
 as they are required by the CGI's ETC. In this work we use a local zodiacal
-light surface brightness of $n_{\textrm{Z}}=23
-\frac{\textrm{mag}}{\textrm{arcsec}^2}$ and extra zodiacal light surface
-brightness of $n_{\textrm{EZ}}=22 \frac{\textrm{mag}}{\textrm{arcsec}^2}$
+light surface brightness of $Z=23
+\frac{\textrm{mag}}{\textrm{arcsec}^2}$ and exozodiacal light surface
+brightness of $EZ=22 \frac{\textrm{mag}}{\textrm{arcsec}^2}$
 taken from \citet{starkMaximizingExoEarthCandidate2014}. Some example
 minimization calculations are shown in \Cref{fig:minimization_star_comp}.
 \begin{figure}

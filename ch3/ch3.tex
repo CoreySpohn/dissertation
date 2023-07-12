@@ -58,11 +58,11 @@ of directly imaging a planet that has an RV orbit fit.
 
 In \Cref{sec:impact_on_completeness} we will first demonstrate the impact of
 assuming a flat $\Delta\textrm{mag}_0$ value for calculations of completeness
-and then expand it to include zodiacal and extra zodiacal light. Then in
+and then expand it to include zodiacal and exozodiacal light. Then in
 \Cref{section:impact_on_pdet} we will relate the it to the probability of
 detection metric $P_\textrm{det}$ that was described in \Cref{cha:first_paper},
 ultimately expanding $P_\textrm{det}$ to account for variations in $t_\textrm{int}$, $\alpha$,
-local zodiacal light, and extra zodiacal light.
+local zodiacal light, and exozodiacal light.
 
 % For example, the paper \citet{keithlyIntegrationTime2021} created a method
 % of calculating complenetess
@@ -105,7 +105,7 @@ coupling described in \Cref{cha:coupling} we cannot use the same method to calcu
 a $\Delta\textrm{mag}_0$ for completeness. The $\Delta\textrm{mag}_0$ value is instead
 formulated by calling the minimization routine from \Cref{cha:coupling} 
 for a given $t_\textrm{int}$, local zodiacal light surface brightness $n_\textrm{Z}$,
-extra zodiacal light surface brightness $n_\textrm{EZ}$, and separation $\alpha$.
+exozodiacal light surface brightness $n_\textrm{EZ}$, and separation $\alpha$.
 
 \subsection{Integration Time Example}
 \label{sub:comp_per_inttime}
@@ -145,27 +145,59 @@ initially and then little benefit after a few days of integration time.
 % for the star at an required integration time.
 
 
-\subsection{Full Photometric Constraint}
-\label{sub:full_comp}
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=0.95\textwidth]{ch3/figures/fZ_fEZ_curves.png}
-  \end{center}
-  \caption{$\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, n_\textrm{Z}, n_\textrm{EZ})$ for HIP 91438.
-    Each column has a constant value of $n_\textrm{EZ}$ and each row has a
-    constant value of $n_\textrm{Z}$. The zodiacal light values were generated
-    using EXOSIMS to simulate the range of zodiacal light values of observing
-  the star for a telescope at L2. TODO:make the nEZ values more representative.}
-  \label{fig:fZ_fEZ_curves}
-\end{figure}
 
-By accounting for integration time, separation, zodiacal light, and extra
-zodiacal light we end up with a four dimensional photometric constraint for
-each star, $\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, n_\textrm{Z},
-n_\textrm{EZ})$. These four dimensions are the range of input values necessary
-to invert the exposure time calculator described by \citet{Nemati2014} for a
-specific mission design. An example of the $\Delta\textrm{mag}_0$ curves for
-various zodiacal light assumptions is shown in \Cref{fig:fZ_fEZ_curves}. 
+\subsection{Zodiacal light calculations}
+
+Local and exozodiacal light are calculated in the same manner as is used by
+\code{EXOSIMS} which is based on the work in \citet{leinert1997Reference1998,
+starkMaximizingExoEarthCandidate2014,starkLowerLimitsAperture2015,
+keithlyOptimalScheduling2020}. The specific intensity of local zodiacal
+light is calculated as
+\begin{equation}
+  I_\textrm{zodi}(\Delta \lambda_\odot, \beta_\odot, \lambda_0) = 
+  I_{\textrm{zodi}, \textbf{r}}^V(\Delta \lambda_\odot, \beta_\odot) 
+\frac{I_{\textrm{zodi}, \lambda} (\lambda_0)}{I_{\textrm{zodi}, \lambda}(\textrm{500 nm})}
+  \label{eq:local_zodi}
+\end{equation}
+where $I_{\textrm{zodi}, \lambda}$ is the interpolant from
+\citet{leinert1997Reference1998} Table 19 for the specific intensity of
+zodiacal light as a function of wavelength, $I_{\textrm{zodi},
+\textbf{r}}^V(\Delta \lambda_\odot, \beta_\odot)$ is from Table 17 of the same
+paper and represents the specific intensity of zodiacal light as a function of
+the telescope's look vector, $\Delta \lambda_\odot$ is the solar ecliptic
+longitude, $\beta_\odot$ is the ecliptic latitude, and $\lambda_0$ is the
+observing wavelength. The units for \Cref{eq:local_zodi} are photons/s/m$^2$/as$^2$/nm
+For clarity we will describe the zodiacal light in magnitude units by converting
+the specific intensity into mag/as$^2$ units.
+\begin{equation}
+  Z = -2.5 \log_{10}(I_\textrm{zodi})
+  \label{eq:zodi_mag}
+\end{equation}
+
+The values of exozodical light are calculated in a
+similar fashion but with a multiplication factor $n_{EZ}$ to allow for
+planetary systems with more or less dust than the solar system. The calculation
+for the specific intensity of exozodiacal light in V band is
+\begin{equation}
+  I_\textrm{exozodi}^V = n_{EZ} \mathcal{F}_{0,V}10^{-0.4(M_V-M_{V,\odot}+x)}\left( \frac{1 \textrm{AU}}{r}\right)^2
+  \label{eq:exozodi}
+\end{equation}
+where $n_{EZ}$ is the number of zodi in the planetary system (where 1 "zodi" is
+equivalent to the exact distribution of dust in the solar system), $M_V$ is the
+absolute magnitude of the target star, $M_{V,\odot}$ is the absolute magnitude
+of the sun, $x$ is the nominal specific brightness of the planetary system's
+disk at 1 AU, and $r$ is the planet's orbital radius at the time of
+observation. To get the specific intensity at an arbitrary wavelength we can
+then use $I_\textrm{exozodi}^V$ instead of $I_{\textrm{zodi}, \textbf{r}}^V$ in
+\Cref{eq:local_zodi}. To calculate the specific intensity of the planet at a
+given time we calculate its $r$ value and the corresponding specific intensity.
+In this paper we parameterize the exozodi values with the $n_{EZ}$ value. To
+sample $n_{EZ}$ we use the distribution of exozodi from
+\citet{ertelHOSTSSurvey2020} which extrapolates the results of the Large
+Binocular Telescope Interferometer's (LBTI) "Hunt for Observable Signatures of
+Terrestrial planetary Systems" (HOSTS) survey to get a distribution of
+exozodical dust.
+
 
 % Extra zodiacal light is unlikely to be known before a mission, but
 % is worth keeping as an input so that different scenarios can be tested quickly.
@@ -173,20 +205,41 @@ various zodiacal light assumptions is shown in \Cref{fig:fZ_fEZ_curves}.
 % orbit is known. However, in summed completeness simulations the time of
 % observation is generally not considered so it would be of little use. 
 
+\subsection{Full Photometric Constraint}
+\label{sub:full_comp}
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth]{ch3/figures/fZ_fEZ_curves.png}
+  \end{center}
+  \caption{$\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, Z, n_\textrm{EZ})$ for HIP 91438.
+    Each column has a constant value of $n_\textrm{EZ}$ and each row has a
+    constant value of $Z$. The zodiacal light values were generated
+    using EXOSIMS to simulate the range of zodiacal light values of observing
+  the star for a telescope at L2.}
+  \label{fig:fZ_fEZ_curves}
+\end{figure}
+
+By accounting for integration time, separation, local zodiacal light, and 
+exozodiacal light we end up with a four dimensional photometric constraint for
+each star, $\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, Z,
+n_\textrm{EZ})$. These four dimensions are the range of input values necessary
+to invert the exposure time calculator described by \citet{Nemati2014} for a
+specific mission design. An example of the $\Delta\textrm{mag}_0$ curves for
+various zodiacal light assumptions is shown in \Cref{fig:fZ_fEZ_curves}. 
 To visualize the impact of separation and zodiacal light on completeness
 we can formulate our limiting $\Delta\textrm{mag}$ as 
-$\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, n_\textrm{Z}, n_\textrm{EZ})$.
+$\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, Z, n_\textrm{EZ})$.
 Then our equation for completeness becomes
 \begin{equation}
-  c(t_\textrm{int}, n_\textrm{Z}, n_\textrm{EZ}) = 
+  c(t_\textrm{int}, Z, n_\textrm{EZ}) = 
   \int_{\alpha_\textrm{min}}^{\alpha_\textrm{max}} 
-  \int_{0}^{\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, n_\textrm{Z}, n_\textrm{EZ})}
+  \int_{0}^{\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, Z, n_\textrm{EZ})}
   f(\alpha, \Delta\textrm{mag})\textrm{d}\alpha \textrm{d}\Delta\textrm{mag}
   \label{eq:comp_integral}
 \end{equation}
 where we leave our zodiacal light values as inputs. In the best case scenario
 the completeness is within 0.01 of the flat curve shown in
-\Cref{fig:default_dmag_curve}, but drops considerably for high extra zodiacal
+\Cref{fig:default_dmag_curve}, but drops considerably for high exozodiacal
 light values.
 
 \begin{figure}
@@ -196,14 +249,14 @@ light values.
   \caption{Completeness as a function of integration time for the same astrophysical
   scenarios as in \Cref{fig:fZ_fEZ_curves}. The three lines represent different levels
   of accounting for separation and zodiacal light. The line for
-  $\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, n_\textrm{Z}, n_\textrm{EZ})$
+  $\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, Z, n_\textrm{EZ})$
   is the most accurate as it accounts for the most variables and is 
   found by applying \Cref{eq:comp_integral} to the curve in \Cref{fig:fZ_fEZ_curves}.
   The 
-  $\Delta\textrm{mag}_0(t_\textrm{int}, 0.55", n_\textrm{Z}, n_\textrm{EZ})$
+  $\Delta\textrm{mag}_0(t_\textrm{int}, 0.55", Z, n_\textrm{EZ})$
   line shows the effect of calculating the completeness without accounting for
   the drop in $\Delta\textrm{mag}_0$ at small separations. And the
-  $\Delta\mathrm{mag}_0(t_\mathrm{int}, 0.55$"$, 23, 22)$
+  $\Delta\mathrm{mag}_0(t_\mathrm{int}, 0.55$"$, 23 (\textrm{mag}/")^2, 22(\textrm{mag}/")^2)$
   line is an overlay of the curve generated in \Cref{fig:default_dmag_curve}.
   }
   \label{fig:fZ_fEZ_comps}
@@ -226,8 +279,8 @@ with less complete information. All of the values shown in
 single star and demonstrates the large trade space inherent to making
 assumptions on the zodiacal light when maximizing completeness. Without
 ensuring that observations are made near the minimum local zodiacal light value
-a high completeness observation can drop to zero completeness. Values of extra
-zodiacal light are unlikely to be known before an initial observation is made
+a high completeness observation can drop to zero completeness. Values of 
+exozodiacal light are unlikely to be known before an initial observation is made
 so it cannot be treated 
 
 \Cref{fig:mean_comp_errors} summarizes the effect that using the optimistic
@@ -242,7 +295,7 @@ and the case that takes separation into account, similar to
 per integration time functions and plot them as a single point in
 \Cref{fig:mean_comp_errors}. It's clear that the change in limiting
 $\Delta\textrm{mag}$ near the IWA becomes a problem past 10 parsecs. For
-extreme extra zodiacal light values the effect becomes much more pronounced.
+extreme exozodiacal light values the effect becomes much more pronounced.
 
 For yield modeling based on Monte Carlo mission simulations, such as EXOSIMS
 \citep{savranskyWFIRSTAFTACoronagraphScience2015, delacroixScienceYield2016,
@@ -302,16 +355,16 @@ $\Delta\textrm{mag}$ given an integration time and separation. We generate a 2d
 interpolant for a set of 10 zodiacal values between the star's minimum and
 maximum zodiacal light surface brightness during the telescope's orbit. 
 
-Extra zodiacal light is treated similarly to the local zodiacal light in that
+Exozodiacal light is treated similarly to the local zodiacal light in that
 it is not included in the interpolants. Unlike the zodiacal light we cannot
 come up with the surface brightnesses directly, instead we generate a range of
 $n_\textrm{EZ}$ "zodis" as defined by
 \citet{starkMaximizingExoEarthCandidate2014} and calculate the 2d interpolants
 for a single value of $n_\textrm{EZ}$ zodi. For every separation in the
-interpolant the extra zodiacal light surface brightness is calculated as if the
+interpolant the exozodiacal light surface brightness is calculated as if the
 planet is at an inclination of $135\degree$, the inclination where the surface
 brightness approaches its minimum. Calculating it in this fashion includes the
-fact that the extra zodiacal light decreases for distant orbits.
+fact that the exozodiacal light decreases for distant orbits.
 
 Using the dimmest detectable $\Delta\textrm{mag}$ curves to calculate
 probability of detection is useful because it means we do not need to calculate
@@ -324,7 +377,14 @@ $\alpha$ and integration times which returns the dimmest detectable
 $\Delta\textrm{mag}$ values of interest. Then the probability of detection for
 an integration time is a simple percentage of the number of
 $\Delta\textrm{mag}$ values from propagation that are above their corresponding
-the $\Delta\textrm{mag}_0$ values.
+the $\Delta\textrm{mag}_0$ values, or
+\begin{equation}
+  P_\textrm{det}(t, t_\textrm{int}, Z, n_\textrm{EZ}) = 
+  \int_{\alpha_\textrm{min}}^{\alpha_\textrm{max}} 
+  \int_{0}^{\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, Z, n_\textrm{EZ})}
+  f(\alpha, \Delta\textrm{mag})\textrm{d}\alpha \textrm{d}\Delta\textrm{mag}
+  \label{eq:comp_integral}
+\end{equation}
 
 \subsection{Demonstration}
 
@@ -397,7 +457,7 @@ shows that the model does a very good job of capturing the true detectability
 of the planet with only a small range of values where the model and the true
 detectability do not line up while the planet is near the telescope's IWA.
 
-It further shows how the assumption on extra zodiacal light impacts the
+It further shows how the assumption on exozodiacal light impacts the
 resulting probability of detection, functioning similar to a safety factor. Choosing
 a high $n_\textrm{EZ}$ value results in depressed probability of detection values
 in exchange for more guarantee that any individual observation will be successful.
@@ -414,7 +474,7 @@ value to represent the likelihood of a detecting a planet from an assumed
 population given a specific star and mission design, to show that separation
 and zodiacal light values have a considerable impact. Then by calculating 
 $\Delta\textrm{mag}_0$ as a function of integration time, angular separation,
-zodiacal light, and extra zodiacal light we showed that we can very
+zodiacal light, and exozodiacal light we showed that we can very
 accurately estimate the observation and integration times necessary to
 directly image an exoplanet.
 
