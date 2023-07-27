@@ -2,7 +2,7 @@
 \label{sec:motivation}
 
 An exoplanet is simply any planet that is not in our solar system. Researching
-them requires considerable motivation because they are very far from Earth,
+them requires considerable motivation as they are very far from Earth,
 hard to find, and require very expensive instruments. 
 
 The astronomy community's interest in exoplanets has been growing as the number
@@ -27,7 +27,7 @@ are built around a three stage process where a protoplanetary disk collapses,
 planetesimals form through accretion, and the planetesimals ultimately merge
 through gravity\citep{Jeffery}. This process is generally accepted but the
 specifics of the steps, particularly the accretion step, are not well
-understood \citep{Perryman2018a}. Every planet detected can be used to
+understood \citep{Perryman2018a}. Every planet detected will be used to
 fine-tune our models of that formation process.
 
 There's also a societal purpose to the study of exoplanets, as fostering a
@@ -61,24 +61,23 @@ particularly for habitable worlds.
 
 There are many different ways to detect an exoplanet, all of which provide
 different information on the planet and are biased towards certain kinds of
-planets. An easy way to see this is
-\Cref{fig:archive_exoplanet_distribution}, which plots all published exoplanets
-that have been added to the NASA Exoplanet Archive, a database to that contains
-the information on all published exoplanets, at the time of writing. Each detection
-method covers a different range of values in the figure, representing the kinds
-of planet masses and periods it is biased towards.
+planets. An easy way to see this is \Cref{fig:archive_exoplanet_distribution},
+which plots all published exoplanets that have been added to the NASA Exoplanet
+Archive, a database to that contains the information on all published
+exoplanets, at the time of writing. Each detection method covers a different
+range of periods and masses in the figure, representing the kinds of planet
+planets the detection method is biased towards.
 
-Here I will highlight two broad forms of exoplanet detection, direct and
-indirect. Direct detection of an exoplanet requires light to be collected from
-the planet itself whereas indirect detection of an exoplanet is when the planet
-can be inferred based on the star's light. The techniques that are relevant to
-this work are direct imaging, radial velocity, transit, and astrometry. The
-transit technique has detected the most planets. Currently, the NASA Exoplanet
-Archive has 4114 planets detected via transit, 1044 detected via radial
-velocity, 67 detected with imaging, and 2 detected with astrometry. These
-numbers are steadily increasing and missions such as TESS and Gaia will
-increase the number of known exoplanets by the thousands \citep{Perryman2018a}
-\citep{Huang2018}.
+There are two broad forms of exoplanet detection, direct and indirect. Direct
+detection of an exoplanet requires light to be collected from the planet itself
+whereas indirect detection of an exoplanet is when the planet can be inferred
+based on the star's light. The techniques that are relevant to this work are
+direct imaging, radial velocity, transit, and astrometry. The transit technique
+has detected the most planets. Currently, the NASA Exoplanet Archive has 4114
+planets detected via transit, 1044 detected via radial velocity, 67 detected
+with imaging, and 2 detected with astrometry. These numbers are steadily
+increasing and missions such as TESS and Gaia will increase the number of known
+exoplanets by the thousands \citep{Perryman2018a} \citep{Huang2018}.
 
 \subsection{Indirect Detection} 
 
@@ -119,20 +118,20 @@ of the planet and search for signs of water and biosignatures.
 
 This dissertation will focus on the synergy of using radial velocity data to
 predict the best times to make observations of exoplanets with a direct imaging
-instrument. This combination was chosen due to the difficulty of getting
-spectral information on Earth-like exoplanets. The 2020 decadal report
+instrument. This combination was chosen due to the extreme difficulty of
+getting spectral information on Earth-like exoplanets. The 2020 decadal report
 recommended a 6 meter space-based telescoped optimized for directly detecting
 and spectrally characterizing habitable exoplanets
-\citep{nationalacademiesofsciencesPathwaysDiscoveryAstronomy2021}. This form of
-mission was studied as a part of the HabEx and LUVOIR mission concepts
+\citep{nationalacademiesofsciencesPathwaysDiscoveryAstronomy2021} based on the
+HabEx and LUVOIR mission concept studies
 \citep{gaudiHabitableExoplanetObservatory2020,TheLUVOIRTeam2019}. Both the
 HabEx and LUVOIR teams recommended considerable effort be put into finding
 habitable worlds through other detection methods before the launch of a
 space-based direct imaging mission. The main reason for this is simply that it
 is easier to detect a planet when you now approximately where it will be.
-Additionally, if a star is observed and no Earth-like planet is found then
-that star can be removed from the direct imaging mission's list of stars
-to observe, or target list. 
+Additionally, if a star is observed and no Earth-like planet is found then that
+star can be removed from the direct imaging mission's list of stars to observe,
+or target list. 
 
 Earth-like planets around Sun-like stars are difficult to detect for any
 method. They have a very low probability of transiting, astrometry detection of
@@ -150,8 +149,37 @@ Extreme Precision Radial Velocity initiative report from 2021 concluded that
 there are multiple plausible system architectures that can detect Earth-like
 exoplanets under the right conditions\citep{Crass2021}.
 
-% \section{Yield modeling}
-% \textbf{Why create a framework for full simulations}
+\section{Yield modeling}
+\label{sec:intro_yield_modeling}
+
+In studying future missions, an early step is to have some estimate of what
+kind of science can be accomplished by the mission. This leads to the idea of
+"yield modeling", methods that can compare different mission designs to
+determine a trade space between cost and what kind of science a mission can do.
+For exoplanet direct imaging, yield is typically treated as the number of
+planets that can be detected
+\citep{brownSingleVisitPhotometric2005,savranskyAnalyzingDesignsPlanetFinding2010,
+starkMaximizingExoEarthCandidate2014}. Yield modeling plays an important role
+in the mission design process and studies have looked at how many different
+mission design choices impact exoplanet yield: precursor knowledge
+\citep{morganFasterExoEarth2021}, the starlight suppression system
+\citep{savranskyAnalyzingDesignsPlanetFinding2010,morgan19, Stark2016},
+aperture size \citep{starkLowerLimitsAperture2015}, planet population
+\citep{savranskyComparisonAnalyticalDepth2016}, and more. 
+
+It is impossible to separate the work of exoplanet observation scheduling and
+the science yield of an exoplanet mission. When simulating a mission to
+establish the number of planets that can be detected there must be some choices
+made to determine what order stars are observed in. The trade space is
+effectively: what star should be observed, at what time, for how long. Because
+direct imaging depends on reflected light there are considerable portions of an
+exoplanet's orbit when it is not detectable so the choice of when to observe a
+star is vital to whether an exoplanet is detected. Without simulating the full
+process it cannot be proven that a mission will be able to make observations at
+the most advantageous times for all target stars. In this manner yield modeling
+and observation scheduling are inherently linked and important for mission
+design.
+
 
 \section{Dissertation Overview}
 \label{sec:dis_overview}
