@@ -14,18 +14,20 @@
 \usepackage{graphicx,pstricks}
 \usepackage{graphics}
 \usepackage{moreverb}
-\usepackage{subfigure}
+%\usepackage{subfigure}
 \usepackage{epsfig}
 \usepackage{hangcaption}
 \usepackage{palatino}
 \usepackage{textcomp}
-\usepackage{amsmath,amsfonts,amssymb}
 \usepackage{gensymb}
 \usepackage{natbib}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{csvsimple}
+\usepackage{amsmath,amsfonts,amssymb}
 \usepackage{cleveref}
 
+\usepackage{subcaption}
+\captionsetup{format=plain}
 
 \def\code#1{\texttt{#1}}
 %if you're having problems with overfull boxes, you may need to increase
@@ -67,7 +69,7 @@ observing changes in the star. No single detection method can determine
 everything about an exoplanet, and each is biased toward certain kinds of
 planets. The work presented here revolves around the problem of directly
 detecting exoplanets that have been discovered indirectly 
-via the "radial velocity" method.
+via the ``radial velocity'' method.
 
 The first part focuses on how to calculate the times when a planet with an
 orbit fitted via the radial velocity will be detectable for a direct imaging

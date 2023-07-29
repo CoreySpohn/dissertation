@@ -8,7 +8,7 @@ dependent on the planet's position along its orbit because its orbital phase
 determines the amount of light reflecting off the planet and the fact that at
 smaller angular separation's $\alpha$ a telescope will collect less of the planet's
 light. In \Cref{cha:first_paper} a method of creating orbits consistent
-with the underlying radial velocity data was explained and the probability
+with the underlying radial velocity data was detailed and the probability
 of detection was calculated as
 \begin{equation}
     P_{\textrm{det}}(t) = \frac{\textrm{Number of orbits detectable at time $t$}}{\textrm{Number of
@@ -27,7 +27,7 @@ $\Delta\textrm{mag}$ is the planet-star difference in brightness magnitude, IWA
 is the instrument's inner working angle, and OWA is the instrument's outer
 working angle.
 
-Then in \Cref{cha:coupling} we described that using a flat value of
+\Cref{cha:coupling} we described that using a flat value of
 $\Delta\textrm{mag}_0$ will overestimate completeness and described how we can
 calculate $\Delta\textrm{mag}_0$ as a function of various astrophysical inputs,
 primarily the integration time $t_\textrm{int}$ and $\alpha$ when using an
@@ -56,7 +56,7 @@ as it can help drive our intuition, since we will be applying the same
 criteria to determine detectability for both completeness and the probability
 of directly imaging a planet that has an RV orbit fit.
 
-In \Cref{sec:impact_on_completeness} we will first demonstrate the impact of
+In \Cref{sec:impact_on_completeness} we  first demonstrate the impact of
 assuming a flat $\Delta\textrm{mag}_0$ value for calculations of completeness
 and then expand it to include zodiacal and exozodiacal light. Then in
 \Cref{section:impact_on_pdet} we will relate the it to the probability of
@@ -81,7 +81,7 @@ population for a given telescope design. As the primary focus of the field is
 on Earth-like planets that will be the planet population of interest here. The
 parameters for the telescope shown in the rest of the chapter are taken from
 \citet{morganExplorationExpectedNumber2022a} which aimed to simulate the yield
-of a 6m telescope similar to the proposed Habitable Worlds Observatory.
+of a 6 m telescope similar to the proposed Habitable Worlds Observatory.
 
 Yield estimates based on summed completeness are useful because they are much
 faster than running full mission simulations. Typically they have been used to
@@ -95,7 +95,7 @@ starkMaximizingExoEarthCandidate2014}. After allocating observation time to
 each target star it is a simple matter of summing the completeness for all
 targets at their allocated observation time.
 
-In \citep{starkExoEarthYieldLandscape2019} the instrument's contrast limit was
+In \citet{starkExoEarthYieldLandscape2019} the instrument's contrast limit was
 treated as a function of separation by calculating the core throughput at a
 planet's separation and using that to determine the limiting contrast, however
 it is difficult to discern what exactly the completeness constraints were because
@@ -149,7 +149,7 @@ initially and then little benefit after a few days of integration time.
 \subsection{Zodiacal light calculations}
 
 Local and exozodiacal light are calculated in the same manner as is used by
-\code{EXOSIMS} which is based on the work in \citet{leinert1997Reference1998,
+\code{EXOSIMS}, which is based on the work in \citet{leinert1997Reference1998,
 starkMaximizingExoEarthCandidate2014,starkLowerLimitsAperture2015,
 keithlyOptimalScheduling2020}. The specific intensity of local zodiacal
 light is calculated as
@@ -159,18 +159,18 @@ light is calculated as
 \frac{I_{\textrm{zodi}, \lambda} (\lambda_0)}{I_{\textrm{zodi}, \lambda}(\textrm{500 nm})}
   \label{eq:local_zodi}
 \end{equation}
-where $I_{\textrm{zodi}, \lambda}$ is the interpolant from
+where $I_{\textrm{zodi}, \lambda}$ is an interpolant over
 \citet{leinert1997Reference1998} Table 19 for the specific intensity of
 zodiacal light as a function of wavelength, $I_{\textrm{zodi},
-\textbf{r}}^V(\Delta \lambda_\odot, \beta_\odot)$ is from Table 17 of the same
+\textbf{r}}^V(\Delta \lambda_\odot, \beta_\odot)$ is an interpolant over Table 17 of the same
 paper and represents the specific intensity of zodiacal light as a function of
 the telescope's look vector, $\Delta \lambda_\odot$ is the solar ecliptic
 longitude, $\beta_\odot$ is the ecliptic latitude, and $\lambda_0$ is the
-observing wavelength. The units for \Cref{eq:local_zodi} are photons/s/m$^2$/as$^2$/nm
+observing wavelength. The units for \Cref{eq:local_zodi} are photons/s/m$^2$/as$^2$/nm.
 For clarity we will describe the zodiacal light in magnitude units by converting
-the specific intensity into mag/as$^2$ units.
+the specific intensity into mag/as$^2$ units
 \begin{equation}
-  Z = -2.5 \log_{10}(I_\textrm{zodi})
+  Z = -2.5 \log_{10}(I_\textrm{zodi}) \,.
   \label{eq:zodi_mag}
 \end{equation}
 
@@ -244,7 +244,7 @@ light values.
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{ch3/figures/fZ_fEZ_comps_flat.png}
+    \includegraphics[width=\textwidth]{ch3/figures/fZ_fEZ_comps_flat.png}
   \end{center}
   \caption{Completeness as a function of integration time for the same astrophysical
   scenarios as in \Cref{fig:fZ_fEZ_curves}. The three lines represent different levels
@@ -276,16 +276,15 @@ completeness as a function of integration time for the various scenarios in
 \Cref{fig:fZ_fEZ_curves} and compares them to the completeness curves generated
 with less complete information. All of the values shown in
 \Cref{fig:default_dmag_curve,fig:fZ_fEZ_curves,fig:fZ_fEZ_comps} are for a
-single star and demonstrates the large trade space inherent to making
+single star and demonstrate the large trade space inherent to making
 assumptions on the zodiacal light when maximizing completeness. Without
 ensuring that observations are made near the minimum local zodiacal light value
 a high completeness observation can drop to zero completeness. Values of 
 exozodiacal light are unlikely to be known before an initial observation is made
 so it cannot be treated 
 
-\Cref{fig:mean_comp_errors} summarizes the effect that using the optimistic
-"default" scenario of a flat limiting $\Delta\textrm{mag}$ per integration time
-has. The targets shown are the 97 stars from the NEID Earth Twin Survey with
+\Cref{fig:mean_comp_errors} summarizes the effect of using the optimistic
+"default" scenario of a flat limiting $\Delta\textrm{mag}$ per integration time. The targets shown are the 97 stars from the NEID Earth Twin Survey with
 full stellar information in the Simbad database
 \citep{guptaTargetPrioritization2021}. For each star the $\Delta\textrm{mag}_0$
 values are generated. Then the completeness per integration time function is
@@ -304,7 +303,7 @@ a star can be reused across mission simulations with the same telescope orbit
 and optical system. It takes 20-30 seconds to run on a Ryzen 5800x 8 core
 processor in parallel. An application of this could be to schedule observations
 when accounting for the zodiacal light without requiring observations be made
-at the zodiacal light minimum, such as \citet{keithlyOptimalScheduling2020}. In
+at the zodiacal light minimum, as was done in \citet{keithlyOptimalScheduling2020}. In
 that scheduler observations are all made at the minimum zodiacal light for the
 target star. By allowing for observations at times near the minimum, the
 scheduler can likely make worthwhile trades between targets.
@@ -331,7 +330,7 @@ scheduler can likely make worthwhile trades between targets.
 \section{Probability of Detection} % (fold)
 \label{section:impact_on_pdet}
 
-An interesting challenge for direct imaging is using the orbit fits of indirect
+An interesting challenge for direct imaging is using the orbit fits from indirect
 exoplanet detection techniques to estimate the best times to make direct
 observations. Indirect detection via the radial velocity method cannot separate
 the mass and inclination of a planet's orbit, which complicates direct imaging
@@ -360,14 +359,14 @@ it is not included in the interpolants. Unlike the zodiacal light we cannot
 come up with the surface brightnesses directly, instead we generate a range of
 $n_\textrm{EZ}$ "zodis" as defined by
 \citet{starkMaximizingExoEarthCandidate2014} and calculate the 2d interpolants
-for a single value of $n_\textrm{EZ}$ zodi. For every separation in the
+for a single value of $n_\textrm{EZ}$. For every separation in the
 interpolant the exozodiacal light surface brightness is calculated as if the
 planet is at an inclination of $135\degree$, the inclination where the surface
 brightness approaches its minimum. Calculating it in this fashion includes the
 fact that the exozodiacal light decreases for distant orbits.
 
 Using the dimmest detectable $\Delta\textrm{mag}$ curves to calculate
-probability of detection is useful because it means we do not need to calculate
+the probability of detection is useful because it means we do not need to calculate
 the signal to noise ratio of every one of the orbit fits at every possible
 observation time for all integration times. Instead we propagate to time $t$ in
 ($\alpha$, $\Delta\textrm{mag}$) space with the method shown in
@@ -435,12 +434,11 @@ randomly generated planet drawn from occurrence rates from
 planet parameters are $T=653$ days, $i=91.28\degree$, $M_p=0.79 M_\oplus$, $R_p
 = 0.944 R_\oplus$. The RV data was created with precision $\sigma=0.03$ m/s.
 The fitting was done with \code{RadVel} \citep{fultonRadvelRadialVelocity2018}
-via the \code{RVSearch} package \citep{rosenthalCaliforniaLegacy2021} which can
-be seen in \Cref{fig:rv_fit}. Then a set of 10000 orbits consistent with the RV
+via the \code{RVSearch} package \citep{rosenthalCaliforniaLegacy2021} as shown in \Cref{fig:rv_fit}. A set of 10,000 orbits consistent with the RV
 fit were created using the "credible interval" method from Chapter 2 and
 propagated in time as shown in \Cref{fig:pop_propagation_in_time}.
 
-Then the process described above gives us the probability of detecting the
+The process described above gives us the probability of detecting the
 fitted planet as a function of both observation and integration time, shown in
 \Cref{fig:pdet_colored_true_overlay}. The plot includes the detectability of
 the true planet, calculated using EXOSIMS, which shows strong agreement with

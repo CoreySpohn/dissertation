@@ -1,4 +1,4 @@
-inttime,min,med,max
+inttime,minval,medval,maxval
 Conservative NF Imager,0,0,0
 Optimistic NF Imager,0.03606,0.036091,0.036099
 Conservative Spectrometer,0.009155,0.009791,0.010027

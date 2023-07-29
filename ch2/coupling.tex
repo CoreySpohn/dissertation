@@ -6,7 +6,7 @@ that the photometric constraint is a flat, limiting $\Delta\textrm{mag}$ called
 $\Delta\textrm{mag}_0$ \citep{brownSingleVisitPhotometric2005}, an assumption
 that was used in \Cref{cha:first_paper}. This allows for fast computation of
 completeness and therefore the impact of different $\Delta\textrm{mag}_0$
-values on mission yield can be run quickly. However, when a mission's optical
+values on mission yield can be assessed quickly. However, when a mission's optical
 system model is more established we can calculate $\Delta\textrm{mag}_0$ for
 different observing scenarios, a specific combination of target, instrument,
 and integration time. With more accurate $\Delta\textrm{mag}_0$ values we get a
@@ -23,9 +23,9 @@ assuming a single $\Delta\textrm{mag}_0$ for a choice of planet and integration
 time. The $\Delta\textrm{mag}_0$ values have been found by defining an equation
 for required integration time to reach a desired signal-to-noise ratio (SNR),
 and inverting that equation to isolate the $\Delta\textrm{mag}$ as a function
-of the integration time. The paper \citet{keithlyOptimalScheduling2020}, which
-is based on the optical system of the Roman Space Telescope's coronagraph
-instrument \citep{Nemati2014}, uses the integration time equation
+of the integration time. \citet{keithlyOptimalScheduling2020}, which
+analyzed an optical system based on the Roman Space Telescope's coronagraph
+instrument \citep{Nemati2014}, used the integration time equation
 \begin{equation}
   t_i = \frac{\textrm{SNR}^2 \cdot C_{\textrm{b}, i}}{C_{\textrm{p}, i} - \left( \textrm{SNR} \cdot C_{\textrm{sp},i} \right)^2}
   \label{eq:dean_inttime}
@@ -51,34 +51,33 @@ and $\epsilon_{\textrm{PC}}$ is the photon-counting efficiency of the system.
 \citet{keithlyOptimalScheduling2020} notes that $T$ is a function of $\alpha$, but
 that without assuming a constant $\alpha$ the calculation of completeness becomes
 much slower, as the integral formulation cannot be used, and that the
-completeness values may be inaccurate for instruments with where core
+completeness values may be inaccurate for instruments where core
 throughput changes considerably with $\alpha$. In this work we describe how to
 calculate the $\Delta\textrm{mag}_0$ when the $C_{\textrm{b},i}$ term is
 coupled to the planet count rate $C_{\textrm{p},i}$. In \Cref{sec:Coupling of
 background and planet signal} we describe a problem that arises from an optical
 system model where the planet signal and the background signal are coupled,
-then in \Cref{sec:numerically_inverting_ETC} we show a numeric method of
+then in \Cref{sec:numerically_inverting_ETC} we show a numerical method for
 solving the signal coupling problem. In \Cref{sec:coupling_results} we describe
-how to use the numeric method to calculate accurate completeness values for known
-planets for a range of observing scenarios that the Roman Space Telescope's
-coronagraph instrument (Roman CGI) will have. Ultimately we show the ten
+how to use the numerical method to calculate accurate completeness values for known
+planets for the various Roman Space Telescope's
+coronagraph instrument (Roman CGI) observing scenarios. Ultimately we show the ten
 highest completeness planets for the Roman CGI.
-
 
 \section{Coupling of background and planet signal} % (fold)
 \label{sec:Coupling of background and planet signal}
 
 The optical system laid out in \citet{keithlyOptimalScheduling2020} to create
-\ref{eq:dean_dmag}, based on the work of Bijan Nemati for the Roman CGI
+\Cref{eq:dean_dmag}, based on the work of Bijan Nemati for the Roman CGI
 \citep{Nemati2014, nematiSensitivityWFIRST2017, Nemati2020a}, works on the
-assumption that the noise sources included in $C_{\textrm{b}}$ had no
+assumption that the noise sources included in $C_{\textrm{b}}$ have no
 dependence on the planet's $\Delta\textrm{mag}$. However, in newer formulations
-of the Roman CGI exposure time calculator (ETC) there is a dependence. Every
+of the Roman CGI exposure time calculator (ETC) there is such a dependence. Every
 frame results in readout and clock-induced charge noise, and a brighter signal
 will require a shorter exposure time per frame, resulting in more total frames
 and therefore more total readout and clock-induced charge noise. The newer form
 of the ETC is implemented in the \code{EXOSIMS} package's \code{Nemati\_2019}
-module \cite{savranskyWFIRSTAFTACoronagraphScience2015} which is an adaptation
+module \citep{savranskyWFIRSTAFTACoronagraphScience2015} which is an adaptation
 of the Roman CGI team's internal ETC.
 
 \begin{figure}
@@ -147,14 +146,14 @@ represents the lowest possible value that reaches the required SNR, what
 $\Delta\textrm{mag}$ represents $\Delta\textrm{mag}_0$.
 
 The trouble arises from the fact that in the newer formulation of the optical
-system we the $r_n$ term is now dependent on $r_\textrm{pl}$ in a significant
+system the $r_n$ term is now dependent on $r_\textrm{pl}$ in a significant
 fashion. The equation is
 \begin{equation}
   r_n = r_\textrm{pl} + k_\textrm{sp} r_\textrm{sp} + k_\textrm{lz} r_\textrm{lz}+ k_\textrm{ez} r_\textrm{ez}+ k_\textrm{det} r_\textrm{det}
   \label{eq:rn}
 \end{equation}
 where $r_\textrm{sp}$ is the speckle count rate, $r_\textrm{lz}$ is the count
-rate of local zodiacal light, and $r_\textrm{ez}$ is the count rate of
+rate of local zodiacal light, $r_\textrm{ez}$ is the count rate of
 exozodical light, $r_\textrm{det}$ is the count rate of detector noise, and the
 $k_x$ terms are variance enhancement factors for each count rate to account for
 the effects of reference differential imaging. This has a clear dependence on
@@ -171,8 +170,8 @@ detector pixels that the planet signal covers, $q_{\textrm{CIC}}$ is the CCD
 clock-induced charge, $t_{\textrm{fr}}$ is the frame duration,
 $\sigma_{\textrm{rd}}$ is read noise, and $G_{\textrm{EM}}$ is the electron
 multiplication gain. $\sigma_{\textrm{det}}^2$ is one of the four random noise
-components for the target star in $C_{\textrm{b},i}$, see \citet{Nemati2020a}
-for more details. The $1/t_{\textrm{fr}}$ terms in
+components for the target star in $C_{\textrm{b},i}$ (see \citet{Nemati2020a}
+for more details). The $1/t_{\textrm{fr}}$ terms in
 equation~\ref{eq:rdet} represent that the $q_\textrm{CIC}$
 and $\sigma_\textrm{rd}$ terms are dependent on how many frames are taken over
 the course of an observation. The equation for $t_\textrm{fr}$ is 
@@ -197,7 +196,7 @@ that corresponds to the dimmest planet that can be detected.
 
 Figure~\ref{fig:CGI_coupling} shows the errors that occur when trying to
 calculate the $\Delta\textrm{mag}_0$ values without accounting for the rate
-coupling. The colored circles are represent calculating $\Delta\textrm{mag}$
+coupling. The colored circles represent calculating $\Delta\textrm{mag}$
 from \Cref{eq:2020rpl,eq:2020rpl_expand} and using a constant
 $\Delta\textrm{mag}$ value for the $r_n$ term. The true $\Delta\textrm{mag}$
 values, the empty circles, deviate significantly and in many cases would result
@@ -227,7 +226,7 @@ $t_{\textrm{int}}$ that we are trying to calculate completeness for.
 
 Repeatedly running the ETC is computationally costly so we formulate it as a
 minimization problem to reduce the number of evaluations necessary. The
-objective function for minimization
+objective function for this minimization is
 \begin{equation}
   f(\Delta\textrm{mag}, i) = |t_{\textrm{int}} -
   t_{\textrm{ETC}}(\Delta\textrm{mag}, \textrm{SNR}, i)|
@@ -237,11 +236,10 @@ where $t_{\textrm{ETC}}$ is a call to our ETC for target star $i$ for a
 specific observing scenario. The minimization is complicated by the fact that
 $f\left(\Delta\textrm{mag}, i\right)$ has two minima, as shown on the right plot of
 Figure~\ref{fig:ETC_dMag_function}. As we are looking for
-$\Delta\textrm{mag}_0$, our goal is to converge to the higher
+$\Delta\textrm{mag}_0$, our goal is to converge to the larger of the local
 $\Delta\textrm{mag}$ minima. The lower minima is caused by the model for $C_b$
 increasing exponentially as $\Delta\textrm{mag}$ goes to zero. The target
-star's V magnitude affects the location where the slope changes, which is easy
-to see in Figure~\ref{fig:ETC_dMag_function} where the line colors represent
+star's V magnitude affects the location where the slope changes, which can be seen in Figure~\ref{fig:ETC_dMag_function} where the line colors represent
 the V magnitude.
 
 The ETC also has a saturation value, $\Delta\textrm{mag}_\textrm{sat}$. At
@@ -372,8 +370,8 @@ The imaging modes were considered at $t_\textrm{int}$ values of 25, 100, and
 values of 100, 400, and 10000 hours. These times were chosen to represent
 short, medium, and infinite integration times. Finally, the observing modes had
 both an "Optimistic" and "Conservative" error budget based on the model
-uncertainty factors (MUF) established internally by the Roman CGI team. Put together
-an individual observing scenario looks like "Conservative NF Imager 25hr".
+uncertainty factors (MUF) established internally by the Roman CGI team. 
+Individual observing scenario are labeled as a combination of all of these factors, e.g. ``Conservative NF Imager 25hr''.
 
 \begin{figure}
   \begin{center}
@@ -436,9 +434,9 @@ We ran this process for all planets in the Exoplanet Archive and arranged it
 all as a database so that anyone can check the completeness of known
 planets for the Roman Space Telescope. The ten highest completeness planets
 and the observing scenarios to maximize completeness for the planets
-are shown in \ref{tab:top_comp_planets}.
+are shown in \Cref{tab:top_comp_planets}.
 \begin{table}
-  \caption{Highest completeness planets on \url{plandb.sioslab} and their respective
+  \caption{Highest completeness planets on \url{plandb.sioslab.com} and their respective
   observing mode.}
   \label{tab:top_comp_planets}
   \begin{center}
@@ -454,8 +452,8 @@ are shown in \ref{tab:top_comp_planets}.
 \section{Conclusion}
 
 In this chapter we have demonstrated that the current exposure time calculator
-for the Roman Space Telescope's coronagraph instrument cannot be inverted to
-isolate the $\Delta\textrm{mag}$ as a function of $t_\textrm{int}$ because the
+for the Roman Space Telescope's coronagraph instrument cannot be analytically inverted to
+isolate $\Delta\textrm{mag}$ as a function of $t_\textrm{int}$ because the
 background signal is a function of the $\Delta\textrm{mag}$ value. We have
 demonstrated how to handle completeness calculations with that limitation by
 inverting the ETC with a numerical minimization routine implemented in
