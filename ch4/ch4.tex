@@ -369,6 +369,7 @@ interpolated for any set of $t$ and $t_\textrm{int}$ values necessary during
 scheduling.
 
 \subsection{Scheduling Observations}
+\label{sub:scheduling}
 
 Our aim in this work is to schedule observations of the fitted planets in a way
 that is consistent with the observation strategies outlined in the HabEx and
@@ -604,9 +605,19 @@ quarter of a year. The scheduler was allowed to run for two hours.
   \begin{center}
     \includegraphics[width=1\textwidth]{ch4/figures/final_results.pdf}
   \end{center}
-  \caption{Comparison between the scheduler and a random walk schedule.
-  All stars had an Earth-like planet, integration times for the random
-walk were chosen to reach 25 $\Delta$mag (scaled by the stars luminosity).}
+  \caption{Comparison between the RV scheduler and a random walk schedule.
+  All stars in the NETS target list were populated with an Earth-like planet,
+  observed with a 3 cm/s RV instrument, and then had observations scheduled
+  using the RV scheduler described in \Cref{sub:scheduling}. Top row shows
+  summary results of the number of observations, the total integration time
+used, and the number of unique planets found when simulating the created
+schedule. The bottom row splits the top right plot out to differentiate how
+many unique planets had only one detection, how many had two detections, and
+how many had three or more detections. The vertical lines represent the mean values
+for the distributions. This plot shows that the RV scheduler is able to detect
+more planets in an efficient manner. The RV scheduler succeeds in getting $\sim$17
+unique planets detected three or more times during the course of the two year
+mission which is a strong result for orbit fitting purposes.}
   \label{fig:randomwalkhist}
 \end{figure}
 

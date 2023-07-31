@@ -49,3 +49,45 @@ such as observing strategies for radial velocity instruments, systematic
 evaluation of different orbit fitting tools, and the impact of reaching
 different radial velocity precisions on the number of Earth-like atmospheres a
 future direct imaging mission will be able characterize.
+
+There are a number of interesting open questions that the work in this
+dissertation is related to. In creating the scheduler in
+\Cref{cha:sim_and_scheduling} there was an assumption that observations should
+only be made when the planet is detectable. However, it is reasonable to
+believe that there are cases when an observation that does not detect a planet
+provides more orbital information by ruling out all orbits that would be
+detectable at the observation time. Doing this would involve calculating some
+measure of entropy in the fitted orbits, which was applied to RV observation
+scheduling in \citet{loredoBayesianMethodsAnalysis2012}.
+\citet{loredoBayesianMethodsAnalysis2012} calculated entropy based on the
+Kullback-Leibler divergence of predicted RV values and identified maximum
+entropy sampling as the best method to reduce uncertainty in the RV orbital
+fit. A similar method could be adapted for direct imaging where the divergence
+of the orbital fit's predicted position in the image frame is used as the
+measure of entropy.
+
+Another extension of this process would be to create a scheduler that is
+reactive to failed observations. The scheduler in \Cref{cha:sim_and_scheduling}
+only works uses a single $n_\textrm{EZ}$ value for all probability of detection
+calculations even though a failed observation is likely due to observing a
+planetary system with a higher $n_\textrm{EZ}$ value. A way to handle this
+could be to recalculate the probability of detection values with a higher
+$n_\textrm{EZ}$ value after a failed observations, then recreate the schedule.
+It would be computationally costly to recalculate the full schedule but it
+would not be difficult to hold all currently scheduled observations constant
+and reschedule observations for just the star that had the failed observation.
+
+A fully dynamic direct imaging mission with infinite computational resources
+would want to run orbit fitting after every observation, recalculate metrics
+relevant to observation scheduling (probability of detection or entropy), and
+fully recreate its observation schedule to maximize the number of detected
+planets (assuming there are no competing science goals for the mission).
+Running for Monte Carlo mission simulations with full fidelity is impractical,
+but it could be possible to create heuristics that estimate the orbital fit
+without actually running orbit fitting. Estimating orbital fits could be done
+using the fact that a Monte Carlo mission simulation has access to the true
+orbital parameters of a planet if there is also a method of determining what
+the uncertainties on those parameters would be given the observations made
+during the mission simulation. No such method currently exists but simulating
+the orbit fitting process for many simulated exoplanet data sets and analyzing
+the resulting orbit fits could lead to such a method.
