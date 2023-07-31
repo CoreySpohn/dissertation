@@ -16,53 +16,62 @@ integration time.
 
 Many factors ultimately play a role in the $\Delta\textrm{mag}_0$ for different
 observing scenarios. A number of papers have described the impact of
-integration time on completeness \citep{hunyadiSingleVisitCompleteness2005,
-  brownNewCompletenessMethods2010, starkMaximizingExoEarthCandidate2014,
-keithlyOptimalScheduling2020} and they mostly work with the assumption of
-assuming a single $\Delta\textrm{mag}_0$ for a choice of planet and integration
-time. The $\Delta\textrm{mag}_0$ values have been found by defining an equation
-for required integration time to reach a desired signal-to-noise ratio (SNR),
-and inverting that equation to isolate the $\Delta\textrm{mag}$ as a function
-of the integration time. \citet{keithlyOptimalScheduling2020}, which
-analyzed an optical system based on the Roman Space Telescope's coronagraph
-instrument \citep{Nemati2014}, used the integration time equation
+integration time on completeness by assuming a constant $\Delta\textrm{mag}_0$
+for a given integration time.\citep{hunyadiSingleVisitCompleteness2005,
+brownNewCompletenessMethods2010, starkMaximizingExoEarthCandidate2014,
+keithlyOptimalScheduling2020}. The $\Delta\textrm{mag}_0$ values have been
+found by defining an equation for required integration time to reach a desired
+signal-to-noise ratio (SNR), and inverting that equation to isolate the
+$\Delta\textrm{mag}$ as a function of the integration time.
+\citet{keithlyOptimalScheduling2020}, which analyzed an optical system based on
+the Roman Space Telescope's coronagraph instrument \citep{Nemati2014}, used the
+integration time equation, 
+% \begin{equation}
+%   t_i = \frac{\textrm{SNR}^2 \cdot C_{\textrm{b}, i}}{C_{\textrm{p}, i}^2 - \left( \textrm{SNR} \cdot C_{\textrm{sp},i} \right)^2}
+%   \label{eq:dean_inttime}
+% \end{equation}
 \begin{equation}
-  t_i = \frac{\textrm{SNR}^2 \cdot C_{\textrm{b}, i}}{C_{\textrm{p}, i} - \left( \textrm{SNR} \cdot C_{\textrm{sp},i} \right)^2}
-  \label{eq:dean_inttime}
+  t = \frac{\textrm{SNR}^2 r_n}{r^2_\textrm{pl} - \textrm{SNR}^2 r^2_{\Delta I}}.
+  \label{eq:2020t}
 \end{equation}
-and expands the $C_{\textrm{p}, i}$ in terms of $\Delta\textrm{mag}$ and ends
-up with the following equation (equation 12)
+which has been used for a number of exoplanet direct imaging studies
+\citep{nematiSensitivityWFIRST2017, delacroixScienceYield2016,
+savranskyMultimissionModeling2017}, and expand the planet count rate term,
+$r_\textrm{pl}$, in terms of $\Delta\textrm{mag}$ to find the following
+equation
 \begin{equation}
-  \Delta\textrm{mag}_i(t_{\textrm{int},i}) = -2.5 \log_{10} \frac{\textrm{SNR} \sqrt{\frac{C_{\textrm{b},
-  i}}{t_i} + C_{\textrm{sp,}i}^2}}{C_{\mathcal{F}_0} 10^{-0.4 \nu_i (\lambda)}
-T(\lambda, \textrm{WA}) \epsilon_{\textrm{PC}}}
+  \Delta\textrm{mag}_i(t_{\textrm{int},i}) = -2.5 \log_{10} \frac{\textrm{SNR} \sqrt{\frac{r_{n,i}
+    }{t_i} + r^2_{\Delta I, i} }}{C_{\mathcal{F}_0} 10^{-0.4 \nu_i (\lambda)}
+T(\lambda, \alpha) \epsilon_{\textrm{PC}}}
   \label{eq:dean_dmag}
 \end{equation}
 where $t_{\textrm{int},i}$ is the integration time of the $i$'th target,
-$C_{\textrm{b},i}$ is the background count rate,
-$C_{\textrm{sp},i}$ is the speckle count rate,
+$r_{n,i}$ is the random variance count rate (or background noise count rate),
+$r_{\Delta I,i}$ is the residual speckle count rate (the count rate of speckle noise after post processing effects),
 $C_{\mathcal{F}_0}$ is the spectral flux density,
 $\lambda$ is the observing wavelength,
-$\nu_i$ is the target star's B-V color at the observing wavelength,
-$\textrm{WA}$ is working angle or angular separation ($\alpha$) between the planet and its star,
-$T$ is the instrument's core throughput,
-and $\epsilon_{\textrm{PC}}$ is the photon-counting efficiency of the system.
+$\nu_i$ is the target star's apparent magnitude,
+$\alpha$ is angular separation between the planet and its star,
+$T$ is the instrument's core throughput (the fraction of the planet's light collected by
+the primary that ends up inside the area circumscribed by the half-max contour
+of the planet's PSF \citep{Nemati2020a}), and $\epsilon_{\textrm{PC}}$ is the
+photon-counting efficiency of the system.
 
-\citet{keithlyOptimalScheduling2020} notes that $T$ is a function of $\alpha$, but
-that without assuming a constant $\alpha$ the calculation of completeness becomes
-much slower, as the integral formulation cannot be used, and that the
-completeness values may be inaccurate for instruments where core
-throughput changes considerably with $\alpha$. In this work we describe how to
-calculate the $\Delta\textrm{mag}_0$ when the $C_{\textrm{b},i}$ term is
-coupled to the planet count rate $C_{\textrm{p},i}$. In \Cref{sec:Coupling of
-background and planet signal} we describe a problem that arises from an optical
-system model where the planet signal and the background signal are coupled,
-then in \Cref{sec:numerically_inverting_ETC} we show a numerical method for
-solving the signal coupling problem. In \Cref{sec:coupling_results} we describe
-how to use the numerical method to calculate accurate completeness values for known
-planets for the various Roman Space Telescope's
-coronagraph instrument (Roman CGI) observing scenarios. Ultimately we show the ten
-highest completeness planets for the Roman CGI.
+\citet{keithlyOptimalScheduling2020} notes that $T$ is a function of $\alpha$,
+but that without assuming a constant $\alpha$ the calculation of completeness
+becomes much slower, as the limiting $\Delta\textrm{mag}$ becomes a function of
+$\alpha$, and that the completeness values may be inaccurate for instruments
+where core throughput changes considerably with $\alpha$. In this work we
+describe how to calculate the $\Delta\textrm{mag}_0$ when the
+$C_{\textrm{b},i}$ term is coupled to the planet count rate $C_{\textrm{p},i}$.
+In \Cref{sec:Coupling of background and planet signal} we describe a problem
+that arises from an optical system model where the planet signal and the
+background signal are coupled, then in \Cref{sec:numerically_inverting_ETC} we
+show a numerical method for solving the signal coupling problem. In
+\Cref{sec:coupling_results} we describe how to use the numerical method to
+calculate accurate completeness values for known planets for the various Roman
+Space Telescope's coronagraph instrument (Roman CGI) observing scenarios.
+Ultimately we show the ten highest completeness planets for the Roman CGI.
 
 \section{Coupling of background and planet signal} % (fold)
 \label{sec:Coupling of background and planet signal}
@@ -89,9 +98,9 @@ of the Roman CGI team's internal ETC.
   between the planet signal and the noise factors. The observing scenario
   used for this plot is one day of integration time, the "OPTI\_NF\_Imager"
   observing mode from the Roman CGI ETC, the target planet is fixed to an
-  angular separation of $0.2955"$, zodiacal light surface brightness is fixed to
-  $23 (\textrm{mag}/")^2$, and exozodiacal light surface brightness is
-  fixed to $22 (\textrm{mag}/")^2$. The target stars included are the defaults
+  angular separation of $0.2955$ arcsec, zodiacal light surface brightness is fixed to
+  $23 (\textrm{mag}/\textrm{arcsec})^2$, and exozodiacal light surface brightness is
+  fixed to $22 (\textrm{mag}/\textrm{arcsec})^2$. The target stars included are the defaults
   in the Roman CGI ETC.}
   \label{fig:CGI_coupling}
 \end{figure}
@@ -102,7 +111,7 @@ of the Roman CGI team's internal ETC.
   \end{center}
   \caption{Showing the Roman CGI's ETC integration time response to varying
   $\Delta\textrm{mag}$. Astrophysical inputs here are the same
-  as in Figure~\ref{fig:CGI_coupling}.}
+  as in \Cref{fig:CGI_coupling}.}
   \label{fig:ETC_dMag_function}
 \end{figure}
 
@@ -114,18 +123,20 @@ The equation of signal-to-noise to noise ratio for the Roman CGI is modeled as
   \textrm{SNR} = \frac{r_\textrm{pl}t}{\sqrt{r_n t + r^2_{\Delta I} t^2}}
   \label{eq:2020SNR}
 \end{equation}
-where SNR is the signal-to-noise ratio, $r_\textrm{pl}$ is the planet count
-rate, $t$ is the integration time, $r_n$ is the random variance count rate
-(background), and $r_{\Delta I}$ is the residual speckle rate, or the count
-rate of speckle noise after post processing effects. To calculate an exposure
-time for a specific SNR, planet, and star we can keep the SNR, $r_\textrm{pl}$,
-$r_n$, and $r_{\Delta I}$ values constant and solve for $t$ to get the equation 
-\begin{equation}
-  t = \frac{\textrm{SNR}^2 r_n}{r^2_\textrm{pl} - \textrm{SNR}^2 r^2_{\Delta I}}.
-  \label{eq:2020t}
-\end{equation}
-In a similar manner to calculating the exposure time, the limiting $r_\textrm{pl}$
-has traditionally been calculated by solving \Cref{eq:2020SNR} as
+% where SNR is the signal-to-noise ratio, $r_\textrm{pl}$ is the planet count
+% rate, $t$ is the integration time, $r_n$ is the random variance count rate
+% (background), and $r_{\Delta I}$ is the residual speckle rate, or the count
+% rate of speckle noise after post processing effects. 
+To calculate an exposure time for a specific SNR, planet, and star we can keep
+the SNR, $r_\textrm{pl}$, $r_n$, and $r_{\Delta I}$ values constant and solve
+for $t$ to get \Cref{eq:2020t}.
+% \begin{equation}
+%   t = \frac{\textrm{SNR}^2 r_n}{r^2_\textrm{pl} - \textrm{SNR}^2 r^2_{\Delta I}}.
+%   \label{eq:2020t}
+% \end{equation}
+In a similar manner to calculating the
+exposure time, the limiting $r_\textrm{pl}$ has traditionally been calculated
+by solving \Cref{eq:2020SNR} as
 \begin{equation}
   r_\textrm{pl} = \frac{\textrm{SNR} \sqrt{r_n t + r^2_{\Delta I} t^2}}{t}
   \label{eq:2020rpl}
@@ -134,25 +145,25 @@ which is a useful quantity because it is the lowest planet count rate that meets
 the required SNR. If we can isolate $r_\textrm{pl}$ then we can calculate a
 $\Delta\textrm{mag}$ because
 \begin{equation}
-  r_\textrm{pl} = F_\lambda \Delta \lambda 10^{-0.4 \Delta \textrm{mag}} F_s A \tau_\textrm{pl} \eta
+  r_\textrm{pl} = F_\lambda \Delta \lambda 10^{-0.4 \Delta \textrm{mag}} A \tau_\textrm{pl} \eta
   \label{eq:2020rpl_expand}
 \end{equation}
 where $F_\lambda$ is the spectral flux, $\Delta \lambda$ is the filter
-bandwidth, $F_\textrm{s}$ is the star's flux, $A$ is the collecting area,
-$\tau_\textrm{pl}$ is the throughput for the planet light, and $\eta$ is the
-detector quantum efficiency. If we have a specific $r_\textrm{pl}$ that
-represents the lowest possible value that reaches the required SNR, what
-\Cref{eq:2020rpl} represents, then solving \Cref{eq:2020rpl_expand} for
+bandwidth, $A$ is the collecting area, $\tau_\textrm{pl}$ is the throughput for
+the planet light, and $\eta$ is the detector quantum efficiency. If we have a
+specific $r_\textrm{pl}$ that represents the lowest possible value that reaches
+the required SNR, then solving \Cref{eq:2020rpl_expand} for
 $\Delta\textrm{mag}$ represents $\Delta\textrm{mag}_0$.
 
 The trouble arises from the fact that in the newer formulation of the optical
 system the $r_n$ term is now dependent on $r_\textrm{pl}$ in a significant
 fashion. The equation is
 \begin{equation}
-  r_n = r_\textrm{pl} + k_\textrm{sp} r_\textrm{sp} + k_\textrm{lz} r_\textrm{lz}+ k_\textrm{ez} r_\textrm{ez}+ k_\textrm{det} r_\textrm{det}
+  r_n = r_\textrm{pl} + k_\textrm{sp} r_\textrm{sp} + k_\textrm{lz}
+  r_\textrm{lz}+ k_\textrm{ez} r_\textrm{ez}+ k_\textrm{det} r_\textrm{det}.
   \label{eq:rn}
 \end{equation}
-where $r_\textrm{sp}$ is the speckle count rate, $r_\textrm{lz}$ is the count
+In \Cref{eq:rn} $r_\textrm{sp}$ is the speckle count rate, $r_\textrm{lz}$ is the count
 rate of local zodiacal light, $r_\textrm{ez}$ is the count rate of
 exozodical light, $r_\textrm{det}$ is the count rate of detector noise, and the
 $k_x$ terms are variance enhancement factors for each count rate to account for
@@ -172,17 +183,16 @@ $\sigma_{\textrm{rd}}$ is read noise, and $G_{\textrm{EM}}$ is the electron
 multiplication gain. $\sigma_{\textrm{det}}^2$ is one of the four random noise
 components for the target star in $C_{\textrm{b},i}$ (see \citet{Nemati2020a}
 for more details). The $1/t_{\textrm{fr}}$ terms in
-equation~\ref{eq:rdet} represent that the $q_\textrm{CIC}$
+\Cref{eq:rdet} represent that the $q_\textrm{CIC}$
 and $\sigma_\textrm{rd}$ terms are dependent on how many frames are taken over
 the course of an observation. The equation for $t_\textrm{fr}$ is 
 \begin{equation}
   t_{\textrm{fr}} = \frac{0.1}{DC +\left(r_{\textrm{pl}}+r_{\textrm{lz}}+r_{\textrm{ez}}+r_{\textrm{sp}}\right)/m_{\textrm{pix}}}
   \label{eq:bijan_frame_duration}
 \end{equation}
-where $DC$ is the detector dark current noise per second. The value of
-\Cref{eq:bijan_frame_duration} is cut to be between 1 and 80 seconds.
-\Cref{eq:bijan_frame_duration} is not in literature and was pulled from a
-private GitHub repository that hosts the ETC.
+where $DC$ is the detector dark current noise per second.
+\Cref{eq:bijan_frame_duration} comes from private communication with the Roman
+CGI team and is restricted to be between 1 and 80 seconds.
 
 To complicate the relationship further, the $t_{\textrm{fr}}$ value impacts the
 number of cosmic ray hits per frame and the charge transfer efficiency. Those
@@ -191,10 +201,9 @@ rates.
 By making $r_n$ a complex function of $r_\textrm{pl}$ we are unable to isolate
 it as a function of SNR, $r_n$, $r_{\Delta I}$, and $t$ analytically. Therefore
 to calculate the $\Delta\textrm{mag}_0$ for a specific observing scenario we
-need to invert the relationship numerically and to find the $\Delta\textrm{mag}$
-that corresponds to the dimmest planet that can be detected.
+need to invert the relationship numerically.
 
-Figure~\ref{fig:CGI_coupling} shows the errors that occur when trying to
+\Cref{fig:CGI_coupling} shows the errors that occur when trying to
 calculate the $\Delta\textrm{mag}_0$ values without accounting for the rate
 coupling. The colored circles represent calculating $\Delta\textrm{mag}$
 from \Cref{eq:2020rpl,eq:2020rpl_expand} and using a constant
@@ -204,7 +213,7 @@ in underestimating $\Delta\textrm{mag}_0$. The direction of the error is driven
 by how close the $\Delta\textrm{mag}_0$ is to the saturation
 $\Delta\textrm{mag}$, or the $\Delta\textrm{mag}$ at which $\left(\textrm{SNR}
 \cdot r_{\Delta I}\right)^2$ becomes greater than $r_{\textrm{pl}}$ in
-equation~\ref{eq:2020t} and the calculated integration times become
+\Cref{eq:2020t} and the calculated integration times become
 negative.
 
 % section sec:Coupling rewrite (end)
@@ -235,11 +244,11 @@ objective function for this minimization is
 where $t_{\textrm{ETC}}$ is a call to our ETC for target star $i$ for a
 specific observing scenario. The minimization is complicated by the fact that
 $f\left(\Delta\textrm{mag}, i\right)$ has two minima, as shown on the right plot of
-Figure~\ref{fig:ETC_dMag_function}. As we are looking for
+\Cref{fig:ETC_dMag_function}. As we are looking for
 $\Delta\textrm{mag}_0$, our goal is to converge to the larger of the local
 $\Delta\textrm{mag}$ minima. The lower minima is caused by the model for $C_b$
 increasing exponentially as $\Delta\textrm{mag}$ goes to zero. The target
-star's V magnitude affects the location where the slope changes, which can be seen in Figure~\ref{fig:ETC_dMag_function} where the line colors represent
+star's V magnitude affects the location where the slope changes, which can be seen in \Cref{fig:ETC_dMag_function} where the line colors represent
 the V magnitude.
 
 The ETC also has a saturation value, $\Delta\textrm{mag}_\textrm{sat}$. At
@@ -268,7 +277,7 @@ a heuristic we begin with
   \label{eq:dMag_lb}
 \end{equation}
 which resulted in convergence for the minimization in over 99\% of cases for
-the Roman CGI's near field imaging instrument. The routine is implemented
+the Roman CGI's narrow field of view imaging instrument. The routine is implemented
 as the \code{calc\_dMag\_per\_intTime} function in the \code{Nemati}
 module in the \code{EXOSIMS} package. The minimization function itself
 is \code{SciPy}'s \citep{virtanenSciPyFundamental2020} implementation of the
@@ -283,23 +292,33 @@ taken from \citet{starkMaximizingExoEarthCandidate2014}. Some example
 minimization calculations are shown in \Cref{fig:minimization_star_comp}.
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{ch2/figures/minimzation_star_comp.png}
+    \includegraphics[width=0.95\textwidth]{ch2/figures/minimzation_star_comp.pdf}
   \end{center}
-  \caption{Minimization process run on three stars. Each dot represents a step the
+  \caption{Demonstrating successful inversion of the Roman CGI's ETC using the minimization
+    routine on HIP 57, HIP 169 A, and HIP 263. Each dot represents a step the
   minimization routine took, with the first step in dark purple and the last in
-bright yellow.}
+bright yellow. Each row represents a specific star. The left column shows the
+minimization steps compared to the minimization objective function,
+\Cref{eq:intTime_root_obj}, and the $\Delta\textrm{mag}$ bounds given to the
+minimization routine. The middle column shows the corresponding integration
+times for the steps taken by the minimization routine, the $\Delta\textrm{mag}$
+bounds, and the input $t_\textrm{int}$ that the minimization routine is
+attempting to converge to. The right column shows the $\Delta\textrm{mag}$ step
+sizes and their corresponding change in $t_\textrm{int}$.}
   \label{fig:minimization_star_comp}
 \end{figure}
 
 \begin{figure}
   \begin{center}
-    \includegraphics[height=0.75\textheight]{ch2/figures/minimzation_bound_comp.png}
+    \includegraphics[height=0.75\textheight]{ch2/figures/minimzation_bound_comp.pdf}
   \end{center}
-  \caption{Minimization process with an exceptionally difficult scenario, right on the inner
-  working angle of Roman CGI's narrow field instrument with a long integration time requested.
-  Shows the movement of the lower bounds as different scenarios are tested, ultimately finding
-  a solution within the 5\% tolerance on the fifth minimization. Note the large changes in integration
-  time during the last steps which are on the order of $10^{-6}$ $\Delta\textrm{mag}$.}
+  \caption{The minimization process succeeding with an exceptionally difficult
+    scenario, right on the inner working angle of Roman CGI's narrow field
+    instrument with a long integration time requested. The progression of the
+    lower bounds is shown from top to bottom. The algorithm ultimately finds a
+  solution within the 5\% tolerance on the fifth minimization. Note the large
+changes in integration time during the last steps which are on the order of
+$10^{-6}$ $\Delta\textrm{mag}$.}
   \label{fig:minimzation_bound_comp}
 \end{figure}
 
@@ -358,13 +377,13 @@ $t_\textrm{int}$ times each ("minimum", "medium", and "maximum"), with 2
 different error budgets. The observing modes are narrow field imaging, wide
 field imaging, and spectroscopy.
 
-For a full description of the observing modes see \citet{kasdinNancyGrace2020},
-but here is a short description of each. The narrow field imaging is achieved
-with the hybrid Lyot coronagraph with a filter centered at 575 nm, wide field
-imaging is done with a shaped pupil coronagraph (SPC) with a filter centered at
-825 nm, and spectroscopy is done with a separate SPC in a "bowtie" shape with a
-filter centered at 730 nm. 
-
+The narrow field imaging is achieved with the hybrid Lyot coronagraph with a
+filter centered at 575 nm, wide field imaging is done with a shaped pupil
+coronagraph (SPC) with a filter centered at 825 nm, and spectroscopy is done
+with a separate SPC in a "bowtie" shape with a filter centered at 730 nm
+\citep{kasdinNancyGrace2020}. 
+% For a full description of the observing modes see \citet{kasdinNancyGrace2020},
+% but here is a short description of each.
 The imaging modes were considered at $t_\textrm{int}$ values of 25, 100, and
 10000 hours while the spectroscopy mode was considered at $t_\textrm{int}$
 values of 100, 400, and 10000 hours. These times were chosen to represent
@@ -407,18 +426,19 @@ $f_k(\Delta\textrm{mag}, \alpha)$, as shown in
 \Cref{fig:RST_performance_flipped}, and looking at the area under a given
 $\Delta\textrm{mag}_{0,i,j}(\alpha)$ line. The completeness values for the
 scenarios in \Cref{fig:RST_performance_flipped} are shown in
-\Cref{tab:eps_eri_table}. Which shows that wide field imaging mode has the highest
-completeness for epsilon Eridani b. Additionally the table shows us the impact
-that longer $t_\textrm{int}$ values provide for completeness. For the narrow field
-imager increasing $t_\textrm{int}$ has almost no effect, but for the wild field
-imager it is a difference of $\sim$0.077 $c$ between $t_\textrm{int}=25$ hr and
+\Cref{tab:eps_eri_table}, demonstrating that wide field imaging mode has the highest
+completeness for epsilon Eridani b. \Cref{tab:eps_eri_table} shows that for the narrow field
+imager increasing $t_\textrm{int}$ has almost no effect because the narrow field imager is effectively
+at the saturation point at $t_\textrm{int}=25$ for epsilon Eridani. The wild field
+imager is not at the saturation point at $t_\textrm{int}=25$ which results in a
+difference of $\sim$0.077 $c$ between $t_\textrm{int}=25$ hr and
 $t_\textrm{int}=100$ hr.
 
 \begin{table}
   \caption{Completeness of epsilon Eridani b under the 18 different observing scenarios.}
   \label{tab:eps_eri_table}
   \begin{center}
-    \begin{tabular}{|c|c|c|c|}\hline
+    \begin{tabular}{|cccc|}\hline
       \bfseries Scenario &
       \bfseries Minimum $t_\textrm{int}$ &
       \bfseries Medium $t_\textrm{int}$ &
@@ -430,11 +450,11 @@ $t_\textrm{int}=100$ hr.
   \end{center}
 \end{table}
 
-We ran this process for all planets in the Exoplanet Archive and arranged it
-all as a database so that anyone can check the completeness of known
-planets for the Roman Space Telescope. The ten highest completeness planets
-and the observing scenarios to maximize completeness for the planets
-are shown in \Cref{tab:top_comp_planets}.
+This process was run on all planets in the Exoplanet Archive and the resulting
+completeness values were incorporated into the Imaging Mission Database. The
+ten highest completeness planets and the observing scenarios to maximize
+completeness for the planets are shown in
+\Cref{tab:top_comp_planets}.
 \begin{table}
   \caption{Highest completeness planets on \url{plandb.sioslab.com} and their respective
   observing mode.}

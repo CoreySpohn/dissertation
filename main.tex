@@ -57,49 +57,57 @@
 \makecopyright
 
 \begin{abstract}
-Exoplanets have become a major focus in astronomy over the last decade due to
-the rapid increase in the number of detected exoplanets. The detection of new
+Exoplanets have become a major focus in astronomy over the last two decades which has
+driven a rapid increase in the number of detected exoplanets. The detection of new
 exoplanets will drive the future of astronomy. Our understanding of planetary
 formation, the conditions for extraterrestrial life, and the location of
 habitable worlds are directly dependent on obtaining high-quality observations
 of exoplanets. There are a number of methods used to detect an exoplanet
-through direct and indirect information. Direct detection of an exoplanet is
+through direct and indirect observations. Direct detection of an exoplanet is
 done by observing the exoplanet itself, while indirect detection is done by
-observing changes in the star. No single detection method can determine
+observing changes in the star or circumstellar disk. No single detection method can determine
 everything about an exoplanet, and each is biased toward certain kinds of
-planets. The work presented here revolves around the problem of directly
+planets. The work presented here focuses on the problem of directly
 detecting exoplanets that have been discovered indirectly 
 via the ``radial velocity'' method.
 
-The first part focuses on how to calculate the times when a planet with an
-orbit fitted via the radial velocity will be detectable for a direct imaging
-telescope. I analyze how to convert the orbit fits, estimate the probability of
-detection as a function of time, and identify two major failure modes inherent
-to the process.
+The first part of the dissertation focuses on how to calculate the times when a
+planet with an orbit fitted via the radial velocity detection method will be
+detectable for a direct imaging telescope. The dissertation analyzes how to convert the orbit
+fits, estimate the probability of detection as a function of time, and identify
+two major failure modes inherent to the process.
 
-In the second part, I identify a problem with a traditionally used method of
-calculating the dimmest planet that can be detected for a given integration
-time, the total time a star is observed. In creating higher fidelity models of
-the signal to noise ratio for exoplanet detection, the signal and noise terms
-have become inseparable which makes it impossible to calculate the dimmest
-planet detectable as a function of integration time analytically. I demonstrate
-a numerical routine to solve this problem and use it to calculate the
-performance of the Roman Space Telescope's different observing scenarios on
-known exoplanets.
+The second part of the dissertation identifies a problem with a traditionally
+used method of calculating the dimmest planet that can be detected for a given
+integration time, the total time a star is observed. In creating higher
+fidelity models of the signal to noise ratio for exoplanet detection, the
+signal and noise terms have become inseparable which makes it impossible to
+calculate the dimmest planet detectable as a function of integration time
+analytically. The dissertation demonstrate a numerical routine to solve this
+problem and use it to calculate the performance of the Roman Space Telescope's
+different observing scenarios on known exoplanets.
 
-Finally, I use that numerical routine to create a more accurate model to
-estimate the probability of directly imaging an exoplanet detected via the
-radial velocity method by accounting for additional sources of noise. I do this
-by calculating the dimmest planet detectable over a direct imaging instrument's
-possible planet-star separations, local zodiacal light values, and extra zodiacal
-light values then comparing those values to the estimated positions and
-brightnesses of planets consistent with the underlying radial velocity data. I
-validate the work with a framework I developed for full simulations of the
-process. The framework generates a set of radial velocity data for synthetic
-exoplanets, fits orbits to the radial velocity data, calculates the probability
-of detection, schedules observations, and simulates the observations. I show
-that my scheduling algorithm has a high success rate, proving that direct
-imaging observations of previously detected planets can be reliably scheduled.
+Finally, the dissertation uses the numerical routine to determine the dimmest
+planet detectable to create a more accurate model to estimate the probability
+of directly imaging an exoplanet detected via the radial velocity method by
+accounting for additional sources of noise. The probability is found by using
+the dimmest planet detectable over a direct imaging instrument's possible
+planet-star separations, local zodiacal light values, and extra zodiacal light
+values and comparing those values to the estimated positions and brightnesses
+of planets consistent with the underlying radial velocity data. The probability
+of detection metric is validated by creating a framework for full simulations
+of the process. The framework generates a set of radial velocity data for
+synthetic exoplanets, fits orbits to the radial velocity data, calculates the
+probability of detection, schedules observations, and simulates the
+observations. The scheduling algorithm is validated in a simulation of future
+radial velocity and direct imaging instruments. In the simulation the
+scheduling algorithm is compared against random searches and the algorithm, on
+average, detects $\sim$32 unique planets in $\sim$375 days of integration time
+while a random walk detects $\sim$17 unique planets in $\sim$720 days of
+integration time. Finding twice as many planets in half the time is a
+significant improvement and proves that direct imaging observations of
+previously detected planets can be reliably scheduled with the assumed
+instrument performance and mission design parameters.
 
 
 \end{abstract}
