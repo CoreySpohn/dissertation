@@ -189,19 +189,31 @@ directly imaging an exoplanet that has been detected with the radial velocity
 method. In \Cref{cha:first_paper} I begin by analyzing what orbital information
 is missing from a radial velocity fit, how to fill the information, how to use
 that information to estimate the probability of a telescope directly detecting
-that planet, and what can go wrong when doing so. Then in \Cref{cha:coupling} I
-describe a method to accurately estimate what the dimmest planet a direct
-imaging mission can detect in the likely scenario where the planet's brightness
-has a subtle impact on the amount of observational noise. With that method in
-\Cref{cha:accurate_pdet} to expand the probability of detection method to
-incorporate more factors to describe more realistic observation scenarios. Then
-in \Cref{cha:sim_and_scheduling}, I validate the probability of detection
-calculations with a software tool I created that manages the creation of
-synthetic planetary systems, the radial velocity observation process on the
-synthetic planetary systems, full orbital fitting of the collected radial
-velocity data, calculating the probability of detecting the synthetic planets
-that were fitted, scheduling observations based on the probability of
-detection, and finally simulating direct imaging observations based on the
-created schedule to determine its yield.
-
-
+that planet, and what can go wrong when doing so. My contributions on this
+topic come from my analysis of using orbital fit information to predict the
+location of the planet, particularly the two failure modes that can occur. The
+work of \Cref{cha:first_paper} was published as
+\citet{spohnSchedulingDirect2022}. Then in \Cref{cha:coupling} I describe a
+method to accurately estimate what the dimmest planet a direct imaging mission
+can detect in the likely scenario where the planet's brightness has a subtle
+impact on the amount of observational noise. The work of \Cref{cha:coupling}
+was published in the paper \citet{spohnDirectImaging2022} and is incorporated
+in the Imaging Mission Database's \citep{savranskyExplorationDynamical2019}
+estimates of observing mode specific completeness. The methods of
+\Cref{cha:coupling} are combined with the probability of detection metric from
+\Cref{cha:first_paper} in \Cref{cha:accurate_pdet} to calculate the probability
+of detection method with more factors to describe more realistic observation
+scenarios. It is the first method of calculating the trade space of observation
+time and integration time to directly image a planet with precursor radial
+velocity information. Then in \Cref{cha:sim_and_scheduling}, I validate the
+probability of detection calculations with a software tool I created that
+manages the creation of synthetic planetary systems, the radial velocity
+observation process on the synthetic planetary systems, full orbital fitting of
+the collected radial velocity data, calculating the probability of detecting
+the synthetic planets that were fitted, scheduling observations based on the
+probability of detection, and finally simulating direct imaging observations
+based on the created schedule to determine its yield. The work in
+\Cref{cha:sim_and_scheduling} is the first direct imaging mission scheduler to
+simulate the collection and use of precursor data and is the first application
+of constraint programming to the problem of direct imaging observation
+scheduling.
