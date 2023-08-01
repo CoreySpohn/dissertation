@@ -27,13 +27,13 @@ $\Delta\textrm{mag}$ as a function of the integration time.
 the Roman Space Telescope's coronagraph instrument \citep{Nemati2014}, used the
 integration time equation,
 \begin{equation}
-  t = \frac{\textrm{SNR}^2 r_n}{r^2_\textrm{pl} - \textrm{SNR}^2 r^2_{\Delta I}}.
+  t = \frac{\textrm{SNR}^2 r_n}{r^2_\textrm{pl} - \textrm{SNR}^2 r^2_{\Delta I}}
   \label{eq:2020t}
 \end{equation}
 which has been used for a number of exoplanet direct imaging studies
 \citep{nematiSensitivityWFIRST2017, delacroixScienceYield2016,
-savranskyMultimissionModeling2017}, and expand the planet count rate term,
-$r_\textrm{pl}$, in terms of $\Delta\textrm{mag}$ to find the following
+savranskyMultimissionModeling2017}, and expanded the planet count rate term,
+$r_\textrm{pl}$, in terms of $\Delta\textrm{mag}$ to find the 
 equation
 \begin{equation}
   \Delta\textrm{mag}_i(t_{\textrm{int},i}) = -2.5 \log_{10} \frac{\textrm{SNR} \sqrt{\frac{r_{n,i}
@@ -59,7 +59,7 @@ becomes much slower, as the limiting $\Delta\textrm{mag}$ becomes a function of
 $\alpha$, and that the completeness values may be inaccurate for instruments
 where core throughput changes considerably with $\alpha$. In this work, we
 describe how to calculate the $\Delta\textrm{mag}_0$ when the
-$C_{\textrm{b},i}$ term is coupled to the planet count rate $C_{\textrm{p},i}$.
+$r_{n}$ term is coupled to the planet count rate $r_{\textrm{pl}}$.
 In \Cref{sec:Coupling of background and planet signal} we describe a problem
 that arises from an optical system model where the planet signal and the
 background signal are coupled, then in \Cref{sec:numerically_inverting_ETC} we
@@ -75,7 +75,7 @@ Ultimately we show the ten highest completeness planets for the Roman CGI.
 The optical system laid out in \citet{keithlyOptimalScheduling2020} to create
 \Cref{eq:dean_dmag}, based on the work of Bijan Nemati for the Roman CGI
 \citep{Nemati2014, nematiSensitivityWFIRST2017, Nemati2020a}, works on the
-assumption that the noise sources included in $C_{\textrm{b}}$ have no
+assumption that the noise sources included in $r_{n}$ have no
 dependence on the planet's $\Delta\textrm{mag}$. However, in newer formulations
 of the Roman CGI exposure time calculator (ETC), there is such a dependence. Every
 frame results in readout and clock-induced charge noise, and a brighter signal
