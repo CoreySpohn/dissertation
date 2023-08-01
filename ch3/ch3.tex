@@ -209,7 +209,7 @@ exozodiacal dust.
 \label{sub:full_comp}
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.95\textwidth]{ch3/figures/fZ_fEZ_curves.pdf}
+    \includegraphics[width=1\textwidth]{ch3/figures/fZ_fEZ_curves.pdf}
   \end{center}
   \caption{$\Delta\textrm{mag}_0(t_\textrm{int}, \alpha, Z, n_\textrm{EZ})$ for HIP 91438.
     Each column has a constant value of $n_\textrm{EZ}$ and each row has a
@@ -253,10 +253,10 @@ light values.
   is the most accurate as it accounts for the most variables and is 
   found by applying \Cref{eq:comp_integral} to the curve in \Cref{fig:fZ_fEZ_curves}.
   The 
-  $\Delta\textrm{mag}_0(t_\textrm{int}, 0.55\textrm{as}, Z, n_\textrm{EZ})$
+  $\Delta\textrm{mag}_0(t_\textrm{int}, 0.55\textrm{ as}, Z, n_\textrm{EZ})$
   line shows the effect of calculating the completeness without accounting for
   the drop in $\Delta\textrm{mag}_0$ at small separations. And the
-  $\Delta\mathrm{mag}_0(t_\mathrm{int}, 0.55$\textrm{as}$, 23 (\textrm{mag}/\textrm{as})^2, 22(\textrm{mag}/\textrm{as})^2)$
+  $\Delta\mathrm{mag}_0(t_\mathrm{int}, 0.55$\textrm{ as}$, 23 (\textrm{mag}/\textrm{as})^2, 22(\textrm{mag}/\textrm{as})^2)$
   line is an overlay of the curve generated in \Cref{fig:default_dmag_curve}.
   }
   \label{fig:fZ_fEZ_comps}
@@ -346,7 +346,7 @@ direct observations. Indirect detection via the radial velocity method cannot
 separate the mass and inclination of a planet's orbit, which complicates direct
 imaging scheduling because the inclination is important for the planet-star
 separation and the mass is used to estimate radius which impacts the brightness
-of the planet. Chapter 2 showed how to take a radial velocity fit and generate
+of the planet. \Cref{cha:first_paper} showed how to take a radial velocity fit and generate
 the most likely times the planet will be detectable for a given instrument.
 Notably missing from that work was considerations of integration time and
 zodiacal light conditions.
@@ -372,7 +372,7 @@ $n_\textrm{EZ}$ ``zodis'' as defined by
 \citet{starkMaximizingExoEarthCandidate2014} and calculate the 2d interpolants
 for a single value of $n_\textrm{EZ}$. For every $\alpha$ in the interpolant
 the exozodiacal light surface brightness is calculated as if the planet is at
-$\alpha$ value with an inclination of $135\degree$. Calculating it in this
+the $\alpha$ value with an inclination of $135\degree$. Calculating it in this
 fashion includes the fact that the exozodiacal light decreases for distant
 orbits.
 
@@ -464,7 +464,7 @@ planet parameters are $T=653$ days, $i=91.28\degree$, $M_p=0.79 M_\oplus$, $R_p
 = 0.944 R_\oplus$. The RV data was created with precision $\sigma=0.03$ m/s.
 The fitting was done with \code{RadVel} \citep{fultonRadvelRadialVelocity2018}
 via the \code{RVSearch} package \citep{rosenthalCaliforniaLegacy2021} as shown in \Cref{fig:rv_fit}. A set of 10,000 orbits consistent with the RV
-fit were created using the ``credible interval'' method from Chapter 2 and
+fit were created using the ``credible interval'' method from \Cref{cha:first_paper} and
 propagated in time as shown in \Cref{fig:pop_propagation_in_time}.
 
 The process of using the full photometric constraint from \Cref{sub:full_comp}
@@ -477,7 +477,7 @@ section where the probability of detection is high and the planet is not
 detectable is at the 1.1-year mark when the true planet is inside the inner
 working angle. This is shown in \Cref{fig:pop_propagation_in_time} and while
 the estimated probability of detection is high it is not unity, because the
-sampling of orbital inclination described in Chapter 2 captures the fact that
+sampling of orbital inclination described in \Cref{cha:first_paper} captures the fact that
 only very edge-on orbits will be inside the inner working angle. We show the
 areas where the calculated probability of detection is above 0.99 and the true
 planet is not detectable in \Cref{fig:pdet_colored_true_err}, which shows that
