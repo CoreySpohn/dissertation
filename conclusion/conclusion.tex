@@ -22,12 +22,13 @@ there is no analytical solution possible. The problem is formulated as a
 numerical minimization problem on the exposure time calculator for a specific
 combination of telescope, star, and integration time. This is useful as it can
 be used to calculate the probability of a specific planet type being detected
-around a specific star. I applied that method to observing scenarios for the
-Roman Space Telescope and determined the exoplanets that are most likely to be
-detectable. With that method created, in \Cref{cha:accurate_pdet} I improved
-the work described in \Cref{cha:first_paper} to calculate the probability of
-detection by accounting for different integration times and variations in the
-local zodiacal light and exozodiacal light.
+around a specific star. I applied that numerical method to observing scenarios
+for the Roman Space Telescope and determined the exoplanets that are most
+likely to be detectable. In \Cref{cha:accurate_pdet} I improved the work
+described in \Cref{cha:first_paper} with the numerical method from
+\Cref{cha:coupling} to calculate the probability of detection by accounting for
+different integration times and variations in the local zodiacal light and
+exozodiacal light.
 
 The dissertation ends by validating the probability of detection metric in
 \Cref{cha:sim_and_scheduling}. I created a framework for simulating the full
@@ -68,21 +69,22 @@ measure of entropy.
 
 Another extension of this process would be to create a scheduler that is
 reactive to failed observations. The scheduler in \Cref{cha:sim_and_scheduling}
-only works uses a single $n_\textrm{EZ}$ value for all probability of detection
-calculations even though a failed observation is likely due to observing a
-planetary system with a higher $n_\textrm{EZ}$ value. A way to handle this
-could be to recalculate the probability of detection values with a higher
-$n_\textrm{EZ}$ value after a failed observation, then recreate the schedule.
-It would be computationally costly to recalculate the full schedule but it
-would not be difficult to hold all currently scheduled observations constant
-and reschedule observations for just the star that had the failed observation.
+only uses a single $n_\textrm{EZ}$ value for all probability of detection
+calculations even though a failed observation is often due to observing a
+planetary system with a higher $n_\textrm{EZ}$ than the assumed value used to
+calculate probability of detection. A way to handle this could be to
+recalculate the probability of detection values with a higher $n_\textrm{EZ}$
+value after a failed observation, then recreate the schedule. It would be
+computationally costly to recalculate the full schedule but it would not be
+difficult to hold all currently scheduled observations constant and reschedule
+observations for just the star that had the failed observation.
 
 A fully dynamic direct imaging mission with infinite computational resources
 would want to run orbit fitting after every observation, recalculate metrics
 relevant to observation scheduling (probability of detection or entropy), and
 fully recreate its observation schedule to maximize the number of detected
 planets (assuming there are no competing science goals for the mission).
-Running for Monte Carlo mission simulations with full fidelity is impractical,
+Running Monte Carlo mission simulations with full fidelity is impractical,
 but it could be possible to create heuristics that estimate the orbital fit
 without actually running orbit fitting. Estimating orbital fits could be done
 using the fact that a Monte Carlo mission simulation has access to the true
