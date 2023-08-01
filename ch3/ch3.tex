@@ -364,16 +364,16 @@ $\Delta\textrm{mag}$ given an integration time and separation. We generate a 2d
 interpolant for a set of 10 zodiacal values between the star's minimum and
 maximum zodiacal light surface brightness during the telescope's orbit. 
 
-Exozodiacal light is treated similarly to the local zodiacal light in that
-it is not included in the interpolants. Unlike the zodiacal light we cannot
-come up with the surface brightnesses directly, instead we generate a range of
+Exozodiacal light is treated similarly to the local zodiacal light in that it
+is not included in the interpolants. Unlike the zodiacal light we cannot come
+up with the surface brightnesses directly, instead we generate a range of
 $n_\textrm{EZ}$ "zodis" as defined by
 \citet{starkMaximizingExoEarthCandidate2014} and calculate the 2d interpolants
-for a single value of $n_\textrm{EZ}$. For every separation in the
-interpolant the exozodiacal light surface brightness is calculated as if the
-planet is at an inclination of $135\degree$, the inclination where the surface
-brightness approaches its minimum. Calculating it in this fashion includes the
-fact that the exozodiacal light decreases for distant orbits.
+for a single value of $n_\textrm{EZ}$. For every $\alpha$ in the interpolant
+the exozodiacal light surface brightness is calculated as if the planet is at
+$\alpha$ value with an inclination of $135\degree$. Calculating it in this
+fashion includes the fact that the exozodiacal light decreases for distant
+orbits.
 
 Using the dimmest detectable $\Delta\textrm{mag}$ curves to calculate
 the probability of detection is useful because it means we do not need to calculate
