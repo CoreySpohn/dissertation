@@ -5,30 +5,30 @@ An exoplanet is simply any planet that is not in our solar system. Researching
 them requires considerable motivation as they are very far from Earth,
 hard to find, and require very expensive instruments. 
 
-The astronomy community's interest in exoplanets has been growing as the number
-of planets detected increases. This interest is easy to demonstrate with the
-National Academies of Sciences 2020 decadal report which identified ``Worlds and
-Suns in Context'' as one of the three broad themes that compose ``the most
-compelling science" in astronomy and astrophysics for the next 10 years'' 
-\citep{nationalacademiesofsciencesPathwaysDiscoveryAstronomy2021}. They
-identify the discovery of habitable worlds as a priority area and motivate it
-as a drive to understand our place in the universe with questions such as: how
-rare is life, are there worlds that humans might one day live on, and what can we
-learn about Earth by studying other such planets? The answers to these questions
-will be profound and they can only be answered through considerable scientific
-effort.
+The astronomy community's interest in exoplanets has caused significant growth
+in the number of planets detected. This interest is easy to demonstrate with
+the National Academies of Sciences 2020 decadal report which identified
+``Worlds and Suns in Context'' as one of the three broad themes that compose
+``the most compelling science" in astronomy and astrophysics for the next 10
+years'' \citep{nationalacademiesofsciencesPathwaysDiscoveryAstronomy2021}. The
+National Academies of Sciences identified the discovery of habitable worlds as
+a priority area and motivate it as a drive to understand our place in the
+universe with questions such as: how rare is life, are there worlds that humans
+might one day live on, and what can we learn about Earth by studying other such
+planets? The answers to these questions will be profound and they can only be
+answered through considerable scientific effort.
 
-The study of non-habitable planets poses fewer existential questions, and are
+The study of non-habitable planets poses fewer existential questions, and is
 often overlooked because of it, but they too have an important role to play in
 our understanding of the universe. The process of planetary formation has
-interested scientists for centuries, both Immanuel Kant and Pierre-Simon
-Laplace proposed theories \citep{Perryman2018a} in the 1700s. Our models today
-are built around a three-stage process where a protoplanetary disk collapses,
-planetesimals form through accretion, and the planetesimals ultimately merge
-through gravity\citep{Jeffery}. This process is generally accepted but the
-specifics of the steps, particularly the accretion step, are not well
-understood \citep{Perryman2018a}. Every planet detected will be used to
-fine-tune our models of that formation process.
+interested scientists for centuries. For example, both Immanuel Kant and
+Pierre-Simon Laplace proposed theories \citep{Perryman2018a} in the 1700s. Our
+models today are built around a three-stage process where a protoplanetary disk
+collapses, planetesimals form through accretion, and the planetesimals
+ultimately merge through gravity\citep{Jeffery}. This process is generally
+accepted but the specifics of the steps, particularly the accretion step, are
+not well understood \citep{Perryman2018a}. Every planet detected will be used
+to fine-tune our models of that formation process.
 
 There's also a societal purpose to the study of exoplanets, as fostering a
 public interest in science and education is beneficial to the well being of
@@ -53,7 +53,7 @@ particularly for habitable worlds.
     \includegraphics[width=0.95\textwidth]{intro/exo_massperiod.png}
   \end{center}
   \caption{The mass-period distribution of known exoplanets on the 
-  NASA Exoplanet Archive on Jun 29th 2023
+  NASA Exoplanet Archive on June 29th 2023
   \citep{akesonNASAExoplanet2013}. The plot is taken from the Archive
   itself which remakes the plot every time a planet is added.}
   \label{fig:archive_exoplanet_distribution}
@@ -63,21 +63,22 @@ There are many different ways to detect an exoplanet, all of which provide
 different information on the planet and are biased towards certain kinds of
 planets. An easy way to see this is \Cref{fig:archive_exoplanet_distribution},
 which plots all published exoplanets that have been added to the NASA Exoplanet
-Archive, a database that contains the information on all published
-exoplanets, at the time of writing. Each detection method covers a different
+Archive, a database that contains the information on all published exoplanets,
+at the time of writing in June 2023. Each detection method covers a different
 range of periods and masses in the figure, representing the kinds of planet
 planets the detection method is biased towards.
 
 There are two broad forms of exoplanet detection, direct and indirect. Direct
 detection of an exoplanet requires light to be collected from the planet itself
 whereas indirect detection of an exoplanet is when the planet can be inferred
-based on the star's light. The techniques that are relevant to this work are
-direct imaging, radial velocity, transit photometry, and astrometry. The transit technique
-has detected the most planets. Currently, the NASA Exoplanet Archive has 4114
-planets detected via transit, 1044 detected via radial velocity, 67 detected
-with imaging, and 2 detected with astrometry. These numbers are steadily
-increasing and missions such as TESS and Gaia will increase the number of known
-exoplanets by the thousands \citep{Perryman2018a} \citep{Huang2018}.
+based on the star's light or circumstellar disk. The techniques that are
+relevant to this work are direct imaging, radial velocity, transit photometry,
+and astrometry. The transit technique has detected the most planets. Currently,
+the NASA Exoplanet Archive has 4114 planets detected via transit, 1044 detected
+via radial velocity, 67 detected with imaging, and 2 detected with astrometry.
+These numbers are steadily increasing and missions such as TESS
+\citep{Huang2018} and Gaia \citep{Perryman2018a} will increase the number of
+known exoplanets by the thousands.
 
 \subsection{Indirect Detection} 
 
@@ -134,20 +135,21 @@ star can be removed from the direct imaging mission's list of stars to observe,
 or target list. 
 
 Earth-like planets around Sun-like stars are difficult to detect for any
-method. They have a very low probability of transiting, astrometric detection of
-an Earth-like planet can only be done with a space-based mission two orders of
-magnitude more sensitive than the Gaia mission, and the radial velocity method
-is similarly approximately two orders of magnitude
-away\citep{gaudiHabitableExoplanetObservatory2020}. However, the radial
-velocity method can feasibly make the required improvements with ground based
-observatories and many efforts to reach the required sensitivity are in
-progress\citep{Fischer2016a}. The radial velocity precision required to detect
-an Earth-like planet is approximately 10 cm/s and a number of instruments have
-recently demonstrated on-sky radial velocity precision under 1 m/s
-\citep{maroonx2021, guptaTargetPrioritization2021,Pepe2021}. Additionally, the
-2021 Extreme Precision Radial Velocity initiative report concluded that
-there are multiple, plausible system architectures that can detect Earth-like
-exoplanets under the right conditions \citep{Crass2021}.
+method. They have a very low probability of transiting, astrometric detection
+of an Earth-like planet can only be done with a space-based mission two orders
+of magnitude more sensitive than the Gaia mission, and the radial velocity
+method requires sensitivity improvements between one and two orders of
+magnitude (depending on what instrument is considered a baseline sensitivity)
+to detect an Earth-like planet \citep{gaudiHabitableExoplanetObservatory2020}.
+However, the radial velocity method can feasibly make the required improvements
+with ground based observatories and many efforts to reach the required
+sensitivity are in progress\citep{Fischer2016a}. The radial velocity precision
+required to detect an Earth-like planet is approximately 10 cm/s and a number
+of instruments have recently demonstrated on-sky radial velocity precision
+under 1 m/s \citep{maroonx2021, guptaTargetPrioritization2021,Pepe2021}.
+Additionally, the 2021 Extreme Precision Radial Velocity initiative report
+concluded that there are multiple, plausible system architectures that can
+detect Earth-like exoplanets under the right conditions \citep{Crass2021}.
 
 \section{Yield modeling}
 \label{sec:intro_yield_modeling}
@@ -161,7 +163,7 @@ planets that can be detected
 \citep{brownSingleVisitPhotometric2005,savranskyAnalyzingDesignsPlanetFinding2010,
 starkMaximizingExoEarthCandidate2014}. Yield modeling plays an important role
 in the mission design process and studies have looked at how different
-mission design choices impact exoplanet yield: precursor knowledge
+mission components impact exoplanet yield: precursor knowledge
 \citep{morganFasterExoEarth2021}, the starlight suppression system
 \citep{savranskyAnalyzingDesignsPlanetFinding2010,morgan19, Stark2016},
 aperture size \citep{starkLowerLimitsAperture2015}, planet population
@@ -184,7 +186,7 @@ design.
 \section{Dissertation Overview}
 \label{sec:dis_overview}
 
-In this dissertation I present what I have done to improve our chances of
+In this dissertation I present my contributions to improve our chances of
 directly imaging an exoplanet that has been detected with the radial velocity
 method. In \Cref{cha:first_paper} I begin by analyzing what orbital information
 is missing from a radial velocity fit, how to fill the information, how to use
