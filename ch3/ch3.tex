@@ -77,7 +77,7 @@ is to detect Earth-like planets \citep{nasaNASAStrategic2022} that will be the p
 here. The parameters for the telescope shown in the rest of the chapter are
 taken from \citet{morganExplorationExpectedNumber2022a} which aimed to simulate
 the yield of a 6 m telescope similar to the proposed Habitable Worlds
-Observatory.
+Observatory (HWO).
 
 Yield estimates based on summed completeness are useful because they are much
 faster than running full mission simulations. Typically they have been used to
@@ -102,8 +102,8 @@ With the coupling described in \Cref{cha:coupling}, we cannot use the same
 method to calculate a $\Delta\textrm{mag}_0$ for completeness. The
 $\Delta\textrm{mag}_0$ value is instead formulated by calling the minimization
 routine from \Cref{cha:coupling} for a given $t_\textrm{int}$, local zodiacal
-light surface brightness $n_\textrm{Z}$, exozodiacal light surface brightness
-$n_\textrm{EZ}$, and separation $\alpha$.
+light surface brightness $Z$, exozodiacal light surface brightness
+$EZ$, and separation $\alpha$.
 
 \subsection{Integration Time Example}
 \label{sub:comp_per_inttime}
@@ -124,8 +124,8 @@ as a function of integration time $t_\textrm{int}$. An example
 is shown in \Cref{fig:default_dmag_curve}, where the colored rectangle
 represents the calculated $\Delta\textrm{mag}_0$ values for a range of
 $t_\textrm{int}$ values with $\alpha$ held constant to the midpoint between
-the IWA and OWA, $n_\textrm{EZ}=22 \frac{\textrm{mag}}{\textrm{arcsec}^2}$, and
-$n_\textrm{Z}=23 \frac{\textrm{mag}}{\textrm{arcsec}^2}$. Because we have a
+the IWA and OWA, $EZ=22 \frac{\textrm{mag}}{\textrm{arcsec}^2}$, and
+$Z=23 \frac{\textrm{mag}}{\textrm{arcsec}^2}$. Because we have a
 flat $\Delta\textrm{mag}_0$ the completeness can be calculated as
 \begin{equation}
   c(t_\textrm{int}) = \int_{0}^{\Delta\textrm{mag}_0(t_\textrm{int})} 
