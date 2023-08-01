@@ -21,15 +21,11 @@ for a given integration time.\citep{hunyadiSingleVisitCompleteness2005,
 brownNewCompletenessMethods2010, starkMaximizingExoEarthCandidate2014,
 keithlyOptimalScheduling2020}. The $\Delta\textrm{mag}_0$ values have been
 found by defining an equation for required integration time to reach a desired
-signal-to-noise ratio (SNR), and inverting that equation to isolate the
+signal-to-noise ratio (SNR) and inverting that equation to isolate the
 $\Delta\textrm{mag}$ as a function of the integration time.
 \citet{keithlyOptimalScheduling2020}, which analyzed an optical system based on
 the Roman Space Telescope's coronagraph instrument \citep{Nemati2014}, used the
-integration time equation, 
-% \begin{equation}
-%   t_i = \frac{\textrm{SNR}^2 \cdot C_{\textrm{b}, i}}{C_{\textrm{p}, i}^2 - \left( \textrm{SNR} \cdot C_{\textrm{sp},i} \right)^2}
-%   \label{eq:dean_inttime}
-% \end{equation}
+integration time equation,
 \begin{equation}
   t = \frac{\textrm{SNR}^2 r_n}{r^2_\textrm{pl} - \textrm{SNR}^2 r^2_{\Delta I}}.
   \label{eq:2020t}
@@ -61,7 +57,7 @@ photon-counting efficiency of the system.
 but that without assuming a constant $\alpha$ the calculation of completeness
 becomes much slower, as the limiting $\Delta\textrm{mag}$ becomes a function of
 $\alpha$, and that the completeness values may be inaccurate for instruments
-where core throughput changes considerably with $\alpha$. In this work we
+where core throughput changes considerably with $\alpha$. In this work, we
 describe how to calculate the $\Delta\textrm{mag}_0$ when the
 $C_{\textrm{b},i}$ term is coupled to the planet count rate $C_{\textrm{p},i}$.
 In \Cref{sec:Coupling of background and planet signal} we describe a problem
@@ -81,7 +77,7 @@ The optical system laid out in \citet{keithlyOptimalScheduling2020} to create
 \citep{Nemati2014, nematiSensitivityWFIRST2017, Nemati2020a}, works on the
 assumption that the noise sources included in $C_{\textrm{b}}$ have no
 dependence on the planet's $\Delta\textrm{mag}$. However, in newer formulations
-of the Roman CGI exposure time calculator (ETC) there is such a dependence. Every
+of the Roman CGI exposure time calculator (ETC), there is such a dependence. Every
 frame results in readout and clock-induced charge noise, and a brighter signal
 will require a shorter exposure time per frame, resulting in more total frames
 and therefore more total readout and clock-induced charge noise. The newer form
@@ -96,7 +92,7 @@ of the Roman CGI team's internal ETC.
   \caption{Demonstrating the errors in limiting $\Delta\textrm{mag}$, the
   photometric constraint for completeness, when not treating the coupling
   between the planet signal and the noise factors. The observing scenario
-  used for this plot is one day of integration time, the "OPTI\_NF\_Imager"
+  used for this plot is one day of integration time, the ``OPTI\_NF\_Imager''
   observing mode from the Roman CGI ETC, the target planet is fixed to an
   angular separation of $0.2955$ arcsec, zodiacal light surface brightness is fixed to
   $23 (\textrm{mag}/\textrm{arcsec})^2$, and exozodiacal light surface brightness is
@@ -169,7 +165,7 @@ exozodical light, $r_\textrm{det}$ is the count rate of detector noise, and the
 $k_x$ terms are variance enhancement factors for each count rate to account for
 the effects of reference differential imaging. This has a clear dependence on
 $r_\textrm{pl}$ but it has a further dependence through the $r_\textrm{det}$ term
-where
+in
 \begin{equation}
   r_\textrm{det} =  m_\textrm{pix}\left( i_d +
   \frac{q_\textrm{CIC}}{t_\textrm{fr}} +
@@ -246,10 +242,11 @@ specific observing scenario. The minimization is complicated by the fact that
 $f\left(\Delta\textrm{mag}, i\right)$ has two minima, as shown on the right plot of
 \Cref{fig:ETC_dMag_function}. As we are looking for
 $\Delta\textrm{mag}_0$, our goal is to converge to the larger of the local
-$\Delta\textrm{mag}$ minima. The lower minima is caused by the model for $C_b$
-increasing exponentially as $\Delta\textrm{mag}$ goes to zero. The target
-star's V magnitude affects the location where the slope changes, which can be seen in \Cref{fig:ETC_dMag_function} where the line colors represent
-the V magnitude.
+$\Delta\textrm{mag}$ minima. The lower of the minima is caused by the model for
+$C_b$ increasing exponentially as $\Delta\textrm{mag}$ goes to zero. The target
+star's V magnitude affects the location where the slope changes, which can be
+seen in \Cref{fig:ETC_dMag_function} where the line colors represent the V
+magnitude.
 
 The ETC also has a saturation value, $\Delta\textrm{mag}_\textrm{sat}$. At
 $\Delta\textrm{mag}_\textrm{sat}$ the integration time goes to infinity,
@@ -267,11 +264,11 @@ running root finding on
 \end{equation}
 for different values of $\Delta\textrm{mag}$.
 
-The lower bound should be set such that domain of $f\left(\Delta\textrm{mag},
+The lower bound should be set such that the domain of $f\left(\Delta\textrm{mag},
 i\right)$ is limited to the $\Delta\textrm{mag}$ values where the integration
 times are strictly increasing so that the minimization doesn't converge to the
 lower bound because it is approaching the lower $\Delta\textrm{mag}$ minima. As
-a heuristic we begin with
+a heuristic, we begin with
 \begin{equation}
   \Delta\textrm{mag}_{lb}(i) = \Delta\textrm{mag}_{ub}(i) - 2 - V(i)
   \label{eq:dMag_lb}
@@ -284,7 +281,7 @@ is \code{SciPy}'s \citep{virtanenSciPyFundamental2020} implementation of the
 bounded scalar minimization routine from \citet{forsytheComputerMethods1977}
 with a tolerance of $10^{-8}$ on $f(\Delta\textrm{mag}, i)$. The function
 requires as input the local and exozodiacal light surface brightnesses,
-as they are required by the CGI's ETC. In this work we use a local zodiacal
+as they are required by the CGI's ETC. In this work, we use a local zodiacal
 light surface brightness of $Z=23
 \frac{\textrm{mag}}{\textrm{arcsec}^2}$ and exozodiacal light surface
 brightness of $EZ=22 \frac{\textrm{mag}}{\textrm{arcsec}^2}$
@@ -323,15 +320,15 @@ $10^{-6}$ $\Delta\textrm{mag}$.}
 \end{figure}
 
 The two problems we can run into are converging to the lower bound and trying
-to find the $\Delta\textrm{mag}$ for an integration time where the upper
-minimia is on the asymptote. In extreme cases the slope of $(\Delta  t_{\textrm{int}}) /
+to find the $\Delta\textrm{mag}$ for an integration time where the greater of the
+minima is on the asymptote. In extreme cases the slope of $(\Delta  t_{\textrm{int}}) /
 \left(\Delta(\Delta\textrm{mag})\right)$ can be too great for the minimization
 routine to converge to the requested tolerance. To handle this we wrap the
 minimization in a loop. If the minimization converges to the lower bound, the
 lower bound is raised by one and the minimization is run again. If the
 resulting lower bound is greater than the upper bound then \Cref{eq:dMag_lb} is
 modified to subtract 10 instead of 2. For the case where the solution is on the
-asymptote we allow the routine to stop when the solution value is within 5\% of
+asymptote, we allow the routine to stop when the solution value is within 5\% of
 the given integration time as the $\Delta\textrm{mag}$ error will be on the
 order of $10^{-7}$. \Cref{fig:minimzation_bound_comp} demonstrates the worst
 case scenario, where the solution was found after 5 minimization iterations,
@@ -373,14 +370,14 @@ Exoplanet Archive with sufficient orbital information to establish a density
 function of possible $\Delta\textrm{mag}$ and $\alpha$ values as described in
 \citet{savranskyExplorationDynamical2019}. The Roman CGI team created eighteen
 observing scenarios of interest, three of the four observing modes for three
-$t_\textrm{int}$ times each ("minimum", "medium", and "maximum"), with 2
+$t_\textrm{int}$ times each (``minimum'', ``medium'', and ``maximum''), with 2
 different error budgets. The observing modes are narrow field imaging, wide
 field imaging, and spectroscopy.
 
 The narrow field imaging is achieved with the hybrid Lyot coronagraph with a
 filter centered at 575 nm, wide field imaging is done with a shaped pupil
 coronagraph (SPC) with a filter centered at 825 nm, and spectroscopy is done
-with a separate SPC in a "bowtie" shape with a filter centered at 730 nm
+with a separate SPC in a ``bowtie'' shape with a filter centered at 730 nm
 \citep{kasdinNancyGrace2020}. 
 % For a full description of the observing modes see \citet{kasdinNancyGrace2020},
 % but here is a short description of each.
@@ -388,22 +385,23 @@ The imaging modes were considered at $t_\textrm{int}$ values of 25, 100, and
 10000 hours while the spectroscopy mode was considered at $t_\textrm{int}$
 values of 100, 400, and 10000 hours. These times were chosen to represent
 short, medium, and infinite integration times. Finally, the observing modes had
-both an "Optimistic" and "Conservative" error budget based on the model
+both an ``Optimistic'' and ``Conservative'' error budget based on the model
 uncertainty factors (MUF) established internally by the Roman CGI team. 
-Individual observing scenario are labeled as a combination of all of these factors, e.g. ``Conservative NF Imager 25hr''.
+Individual observing scenarios are labeled as a combination of all of these
+factors, e.g. ``Conservative NF Imager 25hr''.
 
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.95\textwidth]{ch2/figures/RST_performance_flipped.png}
   \end{center}
   \caption{The performance of the Nancy Grace Roman Space Telescope's coronagraph
-    instruments when observing the planet epsilon Eridani b. "Optimistic" is the
-  optimistic error budget with maximum integration time while the "Conservative"
+    instruments when observing the planet epsilon Eridani b. ``Optimistic'' is the
+  optimistic error budget with maximum integration time while ``Conservative''
   is the conservative error budget with minimum integration time.}
   \label{fig:RST_performance_flipped}
 \end{figure}
 
-For each observing scenario the $t_\textrm{int}$ value is specified so our
+For each observing scenario, the $t_\textrm{int}$ value is specified so our
 $\Delta\textrm{mag}_0$ is strictly a function of $\alpha$, where $\alpha \in
 [\textrm{IWA}, \textrm{OWA}]$ for the observing mode's IWA and OWA. By applying
 the method described in \Cref{sec:numerically_inverting_ETC} we generated the
@@ -428,7 +426,7 @@ $\Delta\textrm{mag}_{0,i,j}(\alpha)$ line. The completeness values for the
 scenarios in \Cref{fig:RST_performance_flipped} are shown in
 \Cref{tab:eps_eri_table}, demonstrating that wide field imaging mode has the highest
 completeness for epsilon Eridani b. \Cref{tab:eps_eri_table} shows that for the narrow field
-imager increasing $t_\textrm{int}$ has almost no effect because the narrow field imager is effectively
+imager, increasing $t_\textrm{int}$ has almost no effect because the narrow field imager is effectively
 at the saturation point at $t_\textrm{int}=25$ for epsilon Eridani. The wild field
 imager is not at the saturation point at $t_\textrm{int}=25$ which results in a
 difference of $\sim$0.077 $c$ between $t_\textrm{int}=25$ hr and
@@ -471,13 +469,13 @@ completeness for the planets are shown in
 
 \section{Conclusion}
 
-In this chapter we have demonstrated that the current exposure time calculator
+In this chapter, we have demonstrated that the current exposure time calculator
 for the Roman Space Telescope's coronagraph instrument cannot be analytically inverted to
 isolate $\Delta\textrm{mag}$ as a function of $t_\textrm{int}$ because the
 background signal is a function of the $\Delta\textrm{mag}$ value. We have
 demonstrated how to handle completeness calculations with that limitation by
 inverting the ETC with a numerical minimization routine implemented in
-\code{EXOSIMS}. With this routine we can establish the photometric constraint
+\code{EXOSIMS}. With this routine, we can establish the photometric constraint
 ($\Delta\textrm{mag}_0$) for the calculation of completeness for any observing
 scenario when there is a coupling between the planet and background signals. By
 calculating the $\Delta\textrm{mag}_0$ value over a range of $\alpha$ values we

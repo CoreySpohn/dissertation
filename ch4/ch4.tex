@@ -1,13 +1,15 @@
 \section{Introduction}
+
 A major goal of the Habitable Worlds Observatory, a concept for a mission that
-would be the next flagship astrophysics observatory, is to characterize the orbits
-and atmospheres of at least 25 potentially habitable worlds \citep{GreatObservatory}. To do this it will use
-the direct imaging exoplanet detection technique since it provides the best
-opportunity for full spectral characterizations. However, exoplanets are among
-the faintest objects that have been the primary targets of an observation and
-will require days to weeks of integration time. To complicate matters further,
-multiple observations will be required to pin down the orbit of an exoplanet
-before deciding on the best time to do a full spectral characterization \citep{horningMinimumNumber2019}.
+would be the next flagship astrophysics observatory, is to characterize the
+orbits and atmospheres of at least 25 potentially habitable worlds
+\citep{GreatObservatory}. To do this it will use the direct imaging exoplanet
+detection technique since it provides the best opportunity for full spectral
+characterizations. However, exoplanets are among the faintest objects that have
+been the primary targets of observation and will require days to weeks of
+integration time. To complicate matters further, multiple observations will be
+required to pin down the orbit of an exoplanet before deciding on the best time
+to do a full spectral characterization \citep{horningMinimumNumber2019}.
 Allocating the time required for spectral characterizations is therefore
 incredibly costly given the considerable cost of construction, operation, and
 alternative science objectives for a mission like the Habitable Worlds
@@ -15,9 +17,9 @@ Observatory.
 
 Early in the life of a mission, many design decisions are driven by modeling
 how the different aspects of a mission impact the science goals of a mission.
-For exoplanets this can be seen in papers discussing the tradeoffs between the
-diameter of the primary mirror and the number of exoplanets  that will be
-detected, often called the "mission yield". Yield modeling studies will be
+For exoplanets, this can be seen in papers discussing the tradeoffs between the
+diameter of the primary mirror and the number of exoplanets that will be
+detected, often called the ``mission yield''. Yield modeling studies will be
 important to the success of the Habitable Worlds Observatory and two primary
 tools have been created to study the mission yield of space-based direct
 imaging missions, \code{EXOSIMS}
@@ -36,7 +38,7 @@ precursor RV data as integral to increasing the number of exoplanets detected
 \citep{gaudiHabitableExoplanetObservatory2020, TheLUVOIRTeam2019}. An
 Earth-like exoplanet's RV signal is on the order of 10 cm/s but current
 instruments are typically on the order of 1 m/s RV precision. Because of
-this, a number of "Extreme Precision Radial Velocity" (EPRV) instruments capable of detecting Earth-like exoplanets, are being proposed and
+this, a number of ``Extreme Precision Radial Velocity'' (EPRV) instruments capable of detecting Earth-like exoplanets, are being proposed and
 studied \citep{Crass2021}.
 
 The most recent study, \citet{morganExplorationExpectedNumber2022a}, showed
@@ -46,7 +48,7 @@ information reaches the same number of detected exoplanets that a search
 without prior information, a blind search, finds in 600 fewer days. This study
 is best thought of as an upper bound for the mission yield improvement due to
 RV data because it assumed full orbital knowledge. Assuming full orbital
-knowledge was done probabalistically based on research on what planets are
+knowledge was done probabilistically based on research on what planets are
 likely to be discovered depending on the amount and quality of RV data
 collected. This makes it a quick and robust way to determine which planets are
 likely to be detected.
@@ -57,8 +59,8 @@ fitted parameters is period $T$, time of conjunction $T_c$, argument of
 periapsis $\omega$, eccentricity $e$, and minimum mass $M_p \sin{i}$. The
 minimum mass quantity combines two parameters that impact direct imaging and
 estimations of an exoplanet's brightness and location cannot be exact without
-separating the planet mass and inclination. Without data from other detection
-methods those quantities cannot be separated. An additional complication is
+separating the planet's mass and inclination. Without data from other detection
+methods, those quantities cannot be separated. An additional complication is
 that orbit fits have uncertainties on fitted parameters which should be
 accounted for when scheduling observations.
 
@@ -100,7 +102,7 @@ shown in \Cref{fig:rv2imgflowchart}.
     \includegraphics[width=0.95\textwidth]{ch4/figures/flowchartwhite.png}
   \end{center}
   \caption{Framework for simulating the use of precursor radial velocity data
-  for direct missions.}
+  for direct imaging missions.}
   \label{fig:rv2imgflowchart}
 \end{figure}
 
@@ -111,7 +113,7 @@ modified to test different RV or direct imaging scenarios.
 
 \subsection{Planetary system generation}
 
-Full "universes" of planetary systems can be generated by \code{EXOSIMS} or
+Full ``universes'' of planetary systems can be generated by \code{EXOSIMS} or
 \code{exoVista} \citep{starkExoVistaSuitePlanetary2022}. The universe is then
 imported into a Python package, \code{exoverses}, which was created to work as
 an intermediary between the different planetary system generators and
@@ -119,7 +121,7 @@ an intermediary between the different planetary system generators and
 
 \subsection{RV Dataset}
 
-The RV dataset is composed of user-defined RV surveys (called "observing runs"
+The RV dataset is composed of user-defined RV surveys (called ``observing runs''
 in the code) and a set of target stars. These surveys are defined by
 \begin{itemize}
   \item Bad weather probability
@@ -132,7 +134,7 @@ in the code) and a set of target stars. These surveys are defined by
   \item Observation scheduling scheme
 \end{itemize}
 \code{RVtoImaging} uses the \code{astroplan} Python package to
-determine observability of the target stars for the observatory location and
+determine the observability of the target stars for the observatory location and
 airmass constraints \citep{morrisAstroplanOpen2018}. 
 
 % The random observation
@@ -146,7 +148,7 @@ airmass constraints \citep{morrisAstroplanOpen2018}.
 \subsubsection{Scheduling RV observations}
 
 \code{RVtoImaging} currently handles two different RV observation scheduling schemes,
-"random" and "constraint". Both require that a target be observable at the time
+``random'' and ``constraint''. Both require that a target be observable at the time
 of observation. The random observing scheme assigns observations on every
 available night randomly while respecting observability and only making one
 observation per target per night. The constraint observing scheme works based
@@ -158,7 +160,7 @@ star is assigned a Boolean variable, $b_{i,j,k}$, to represent whether an
 observation is made of star $i$ during observation slot $k$ of night $j$. Then
 constraints are added to require that each star is observed at most once per
 night and each observation time has at most one target star. A Boolean
-variable,$B_i$, is defined for each star $i$ such that that $B_i = 0$ if the
+variable,$B_i$, is defined for each star $i$ such that $B_i = 0$ if the
 star has less than the minimum number of observations assigned and one
 otherwise. The objective function given to the CP-SAT solver is
 \begin{gather}
@@ -170,14 +172,14 @@ otherwise. The objective function given to the CP-SAT solver is
   \sum_i b_{i,j,k} \; \leq \; 1 \; \forall \; j,k
   \label{eq:rv_objective}
 \end{gather}
-where the 100 is a weighting term to prioritize the distribution of
+where the 100 term is a weight to prioritize the distribution of
 observations among the target stars. After all observations are assigned by
 calling the solver, each night gets a random draw of bad weather, if there is
 bad weather then the observations from that night do not occur.
 
 \subsubsection{Simulating RV observations}
 After a schedule is created we simulate the observation of the stars. For each
-observation we calculate the true anomaly, $\nu$, of all planets in the target
+observation, we calculate the true anomaly, $\nu$, of all planets in the target
 star's system at the time of the observation and calculate the true radial
 velocity as 
 \begin{equation}
@@ -185,14 +187,14 @@ v_s = \sum_i \left(K_i \left(e_i
 \cos(\omega_i) + \cos(\nu_i + \omega_i)\right)\right) \,
   \label{eq:system_rv}
 \end{equation}
-where $K_i$, $e_i$, $\omega_i$ are the RV semi-amplitude, eccentricity, and
+where $K_i$, $e_i$, and $\omega_i$ are the RV semi-amplitude, eccentricity, and
 argument of periapsis respectively of planet $i$. Each survey is defined
 with a number of error terms that are added in quadrature to get a final RV
 precision. Then we treat the noise sources as uncorrelated and draw RV errors
 for each measurement with the final RV precision as the one $\sigma$ value for
 a Gaussian distribution centered on zero. We note that there are
 time-correlated noise signals, RV jitter, in real RV data which can be
-corrected. However, this is done in a case-by-case basis and is difficult to
+corrected. However, this is done on a case-by-case basis and is difficult to
 scale \citep{guptaTargetPrioritization2021}. Because the primary concern of
 this work is to inform direct imaging scheduling, we leave full simulation of
 RV errors to future work.
@@ -246,7 +248,7 @@ index, $K(t|K_n,P_n,e_n,\omega_n,T_{c,n})$ is the RV signal for planet $n$, $P$
 is the period, $T_{c,n}$ is the time of conjunction, $\dot{\gamma}$ is a linear
 trend term, $t$ is the time of interest, $t_0$ is a reference time, and
 $\ddot{\gamma}$ is a quadratic trend term. \code{RVSearch} works by creating a
-Bayesian information criteria (BIC) periodogram of the RV data to identifying
+Bayesian information criteria (BIC) periodogram of the RV data to identify
 the strongest periodic signals. \code{RVSearch} calculates the BIC as 
 \begin{equation}
 BIC = k
@@ -266,7 +268,7 @@ After all significant periodic signals in the RV data have been identified,
 an MCMC simulation with all planet parameters free. This MCMC process is done
 using the \code{emcee} library \citep{emcee} which is a popular Python
 implementation of the affine invariant ensemble sampler \citep{Goodman2010}.
-This process is very computationally costly, because the search space increases
+This process is very computationally costly because the search space increases
 considerably with every new planet and the periodogram does a maximum a
 posterior fit at every test period with all parameters of previously added
 planets free.
@@ -290,7 +292,7 @@ planet parameters vary which dramatically speeds up the periodogram search.
 
 There are two major bottlenecks in this process. The first is that MCMC does
 not scale well with multiple cores because \code{emcee} exits parallelization
-every time it checks for convergence. Because of this it is better to spawn
+every time it checks for convergence. Because of this, it is better to spawn
 multiple processes that use 5-10 cores each because any benefit gained by
 parallelizing the periodogram search is offset by the wasted time in MCMC. The
 more limiting bottleneck is that MCMC convergence drops considerably as more
@@ -311,25 +313,25 @@ orbital fits. Additionally, by capping the number of planets fitted per system
 we limit the number of planets we will consider in the scheduling step,
 lowering the maximum yield. This is an unfortunate limitation because it
 restricts our ability to fully understand the impact of different RV precision
-value. This limitation is a necessary consequence of fitting tools prioritizing
+values. This limitation is a necessary consequence of fitting tools prioritizing
 precision over efficiency.
 
 \subsection{Probability of Detection}
 
 Probability of detection is calculated in the manner laid out in
-\Cref{cha:accurate_pdet}, which is an adaptation of the "completeness" metric
+\Cref{cha:accurate_pdet}, which is an adaptation of the ``completeness'' metric
 described in \citet{brownSingleVisitPhotometric2005}. Using the MCMC chains
 from the fitting process we generate a representative sample of orbits that are
 consistent with the observed RV data for each planet fitted. If the orbits are
 an accurate description of the RV signal, we can propagate the orbits in time
 and the true planet will be detectable when the orbits are all detectable.
-\code{RVtoImaging} is set up to work the "Credible Interval" or the
-"Multivariate Gaussian" methods of constructing consistent orbits, since
+\code{RVtoImaging} is set up to work the ``Credible Interval'' or the
+``Multivariate Gaussian'' methods of constructing consistent orbits, since
 \Cref{cha:first_paper} showed there is little benefit to only using a single
 set of orbital parameters.
 
 Calculating probability of detection relies on a specific set of direct imaging
-observatory parameters, since an orbit is considered detectable if it meets the
+observatory parameters since an orbit is considered detectable if it meets the
 criteria laid out in \Cref{cha:accurate_pdet}. The
 $\Delta\textrm{mag}_0(\alpha, t_{\textrm{int}}, Z, n_\textrm{EZ})$ values are
 found for a specific telescope using \code{EXOSIMS}'s
@@ -342,7 +344,7 @@ $Z$ values, covering the range of possible $Z$ values for the star during the
 telescope's orbit, and a single $n_\textrm{EZ}$ value. Exozodiacal light
 brightness is a function of the separation $\alpha$ and drops off with a
 $1/r^2$ term as discussed in \citet{starkMaximizingExoEarthCandidate2014}, so
-at every separation $\alpha$ we calculate the corresponding exozodiacal light
+at every separation $\alpha$, we calculate the corresponding exozodiacal light
 surface brightness. Then when calculating the $\Delta\textrm{mag}_0$ values at
 an observation time $t$ we use the interpolant created with the closest $Z$
 value greater than the $Z$ of observing the target star at $t$ and the
@@ -362,7 +364,7 @@ a start time, and an end time. Then the orbits are repeatedly propagated
 between the start and end times and $P_{\textrm{det}}(t, t_{\textrm{int}},
 n_\textrm{Z}, n_\textrm{EZ})$ is calculated for integration times spaced
 logarithmically between the minimum and maximum. The $P_{\textrm{det}}$
-information for all planets around a star are stored as a three dimensional
+information for all planets around a star is stored as a three dimensional
 array that is indexed on the planet number (as assigned during RV fitting),
 $t$, and $t_{\textrm{int}}$. The $P_\textrm{det}$ values can then be
 interpolated for any set of $t$ and $t_\textrm{int}$ values necessary during
@@ -405,7 +407,7 @@ Constraint programming is defined by a set of variables and a set of
 constraints. Each variable is assigned a finite range of values and constraints
 are made on some subset of all the defined variables
 \citep{shawConstraintProgramming2002}. The most common constraints are equality
-relations between variables, however modern solvers provide many useful
+relations between variables, however, modern solvers provide many useful
 abstractions such as conditional constraints, absolute value constraints, and
 multiplication of variable constraints. Constraint programming is built around
 the idea of finding a feasible solution rather than a necessarily optimal
@@ -468,19 +470,19 @@ max wait times, and is constrained to the bounds if they are exceeded.
 
 Adding all of these constraints as linear equations over the Booleans $x_{i, t,
 t_{\textrm{int}}}$ gets complicated quickly. To make constraints easier to
-express we use an abstraction that OR-Tools provides called an "Optional
-Interval Variable", which are defined by an integer "start" variable
-$c_\textrm{start}$, an integer "size" variable $c_\textrm{size}$, and a Boolean
-"active" variable $c_\textrm{active}$. These intervals can be made to represent
-an observations by mapping the discrete $t$ values to the $c_\textrm{start}$
+express we use an abstraction that OR-Tools provides called an ``Optional
+Interval Variable'', which is defined by an integer ``start'' variable
+$c_\textrm{start}$, an integer ``size'' variable $c_\textrm{size}$, and a Boolean
+``active'' variable $c_\textrm{active}$. These intervals can be made to represent
+an observation by mapping the discrete $t$ values to the $c_\textrm{start}$
 variable and the discrete $t_\textrm{int}$ values to the $c_\textrm{size}$
 variable. Interval variables map onto observations of a single star. Intervals
-are effectively "off", not considered in constraints, when their
+are effectively ``off'', not considered in constraints, when their
 $c_\textrm{active}$ variable is false. We only create as many intervals as is
 required per star, the minimum value between the user-set maximum observations
 per star and the product of the number of fitted planets around a star and the
 requested number of observations per planet. We connect the decision variables
-to the interval variables using "channeling constraints", intermediate Boolean
+to the interval variables using ``channeling constraints'', intermediate Boolean
 variables that allow if-then style relationships. This forces a decision
 variable, $x_{i, t, t_{\textrm{int}}}$, to be true when an interval's
 $c_\textrm{active}$ variable is true and its $c_\textrm{start}$ and
@@ -493,7 +495,7 @@ The decision variables $x_{i, t, t_{\textrm{int}}}$ are used because they can
 be correlated to the $P_\textrm{det}$ values much more easily than the interval
 variables in the final objective function. Our goal here is not to simply
 maximize the $P_\textrm{det}$ values, it is to improve the fits of as many
-planet orbits as we can. Because of this we set up an integer variable for each
+planet orbits as we can. Because of this, we set up an integer variable for each
 fitted planet, $b_\textrm{planet}$, that is equal to the number of observations
 of the planet's star that occur at a time when the fitted planet is at or above
 the user-set $P_\textrm{det}$ threshold. The $b_\textrm{planet}$ variables are
@@ -522,12 +524,12 @@ The $c_\textrm{active}$ terms are included in the objective function to prevent
 observations with no benefit from being included. The $c_\textrm{size}$ terms
 are included in the objective function to reduce the integration times if doing
 so does not affect the $b_\textrm{planet}$ term. With the constraints and the
-objective function added to the CP-SAT model we can use the CP-SAT solver to
+objective function added to the CP-SAT model, we can use the CP-SAT solver to
 find an observation schedule that maximizes the objective function.
 
 \subsubsection{Simulating Observations}
 
-With a schedule created we can simulate observations of the synthetic planetary
+With a schedule created, we can simulate observations of the synthetic planetary
 systems that created the synthetic RV data by importing the systems into an
 \code{EXOSIMS} \code{SimulatedUniverse} module and then running an
 \code{EXOSIMS} mission simulation. The same \code{EXOSIMS} input script that
@@ -536,7 +538,7 @@ simulation. This may come across as overfitting, given that we are using the
 same tool when estimating the probability of detection and determining true
 detectability. This is unavoidable for our purpose as mission simulation
 software is continually evolving to include as much detail as possible to
-simulate a direct imaging mission and represents our current models of direct
+simulate a direct imaging mission and represent our current models of direct
 imaging. It will be a continually moving target to keep the probability of
 detection model up to date with our current understanding of what factors drive
 a planet's detectability. As they become more complex so must the probability
@@ -560,7 +562,7 @@ velocity instrument 100 observing nights per year for 5 years, an exposure time
 per target of 20 minutes which is roughly in line with the average NEID
 exposure time and overhead time of 18.74 minutes
 \citep{guptaTargetPrioritization2021}. We set the bad weather probability to
-zero for the work to simulate a mission which would be allowed to reschedule
+zero for the work to simulate a mission that would be allowed to reschedule
 observations if weather prohibited observing on a night. We assume that the RV
 observations continue right up until the mission launch to eliminate dispersion
 error which was described in \Cref{cha:first_paper}. We set a schedule
@@ -569,7 +571,7 @@ scheduler and allowed the scheduler 10 minutes to run.
 
 After simulating the observations and generating the radial velocity fits as
 described above we calculated the probability of detection values using 10000
-orbits constructed with the "credible interval" orbit construction method
+orbits constructed with the ``credible interval'' orbit construction method
 described in \Cref{cha:first_paper}. The orbits were propagated for two years,
 the approximate time allocated for the Earth-like survey by the HabEx team
 \citep{gaudiHabitableExoplanetObservatory2020}. The probability of detection
@@ -583,7 +585,7 @@ planetary systems was treated as a constant value in these simulations but the
 change in surface brightness as a function of separation was accounted for in
 our estimation of $P_\textrm{det}$.
 
-Finally the direct imaging scheduler was allowed integration times of 6 hours,
+Finally, the direct imaging scheduler was allowed integration times of 6 hours,
 1 day, 5 days, 10 days, and 30 days. The planet was to be considered detectable
 if the probability of detection was equal to or above 0.95 and each planet was
 to be observed 3 times when possible. Then we set the minimum required wait
@@ -592,7 +594,7 @@ quarter of a year. The scheduler was allowed to run for two hours.
 
 \begin{figure}
   \begin{center}
-    \includegraphics[height=0.9\textheight]{ch4/figures/example_schedule.png}
+    \includegraphics[height=0.9\textheight]{ch4/figures/full_schedule_2.pdf}
   \end{center}
   \caption{
     Schedule created based fits of 3 cm/s EPRV data on 97 stars populated with
@@ -608,7 +610,7 @@ quarter of a year. The scheduler was allowed to run for two hours.
   \caption{Comparison between the RV scheduler and a random walk schedule.
   All stars in the NETS target list were populated with an Earth-like planet,
   observed with a 3 cm/s RV instrument, and then had observations scheduled
-  using the RV scheduler described in \Cref{sub:scheduling}. Top row shows
+  using the RV scheduler described in \Cref{sub:scheduling}. The top row shows
   summary results of the number of observations, the total integration time
 used, and the number of unique planets found when simulating the created
 schedule. The bottom row splits the top right plot out to differentiate how
@@ -621,42 +623,45 @@ mission which is a strong result for orbit fitting purposes.}
   \label{fig:randomwalkhist}
 \end{figure}
 
+TODO FIX THIS TO NEW SCHEDULE PLOT
 An example schedule is shown in \Cref{fig:schedule}, where 42 of the 112
-planets was detected at least once, 124 observations were scheduled, and 98 of
+planets were detected at least once, 124 observations were scheduled, and 98 of
 the scheduled observations were successful. In total the scheduler used 423
-days of integration time out of the allowed two years. It is difficult to find
+days of integration time out of the allowed two years. 
+
+It is difficult to find
 an analogous comparison in literature to the case we are showing, as previous
 studies of RV knowledge fixed the positions of the planets to be the same for
 all observations, used a much larger target list, and focused on full
-characterization which is not included in this
-work \citep{morganExplorationExpectedNumber2022a}. Because of this we compare
-our schedule to a random walk scheduler, where we use the same set of planets
-and telescope parameters and simulate a mission using a random walk scheduler. When determining
-which star to observe the random walk scheduler picks randomly from the stars
-that are observable at the current mission time. After a star is picked the
-scheduler randomly selects an integration time from the same set of discrete
-integration times used by the CP-SAT scheduler and simulates the observation.
-This process is repeated until an observation would end after the mission's
-end time.
+characterization which is not included in this work
+\citep{morganExplorationExpectedNumber2022a}. Because of this, we compare our
+schedule to a random walk scheduler, where we use the same set of planets and
+telescope parameters and simulate a mission using a random walk scheduler. When
+determining which star to observe the random walk scheduler picks randomly from
+the stars that are observable at the current mission time. After a star is
+picked the scheduler randomly selects an integration time from the same set of
+discrete integration times used by the CP-SAT scheduler and simulates the
+observation. This process is repeated until an observation would end after the
+mission's end time.
 % randomly for the full mission time. The integration times per target star were
 % chosen such that instrument could reach $\Delta\textrm{mag}=25$. 
 
 We show 100 full simulations compared to 10000 random walks in 
 \Cref{fig:randomwalkhist}. Our scheduler used about half as much integration
 time as the random walk and was able to detect approximately 10 more planets
-per simulation. It also dramatically out performs the random walk scheduler
+per simulation. It also dramatically outperforms the random walk scheduler
 in reaching three observations in the allowed mission time.
 
 To test the impact of the precision $\sigma$ and the assumed number of zodis in
 a planetary system on the scheduler we ran the same situation without redrawing
-until an Earth-like planet is in a system. In this way we end up with fewer
+until an Earth-like planet is in a system. In this way, we end up with fewer
 total fits, based on the occurrence rate of Earth-like planets,
 $\eta_{\oplus}$, which we set to 0.24 in line with
 \citet{dulzJointRadialVelocity2020} occurrence rates which was also used in the
 EPRV study \citep{morganExplorationExpectedNumber2022a}. We tested the
 scheduler for 5 $\sigma$ values (0.1, 0.07, 0.05, 0.03, 0.01 m/s) and 5
 $q_\textrm{EZ}$ values (0.05, 0.25, 0.5, 0.75, 0.95) where the $q_\textrm{EZ}$
-values map to an $n_\textrm{EZ}$ quantile from the the occurrence rates derived
+values map to an $n_\textrm{EZ}$ quantile from the occurrence rates derived
 in \citet{ertelHOSTSSurvey2020}.
 
 The results are shown in \Cref{fig:sigma_nEZ_impact_plots} where the impact of
@@ -699,7 +704,7 @@ total yield of the mission.
     that for high assumed values of $n_\textrm{EZ}$ the number of planets detected decreases.
     The right plot shows that when high values of $n_\textrm{EZ}$ are used observations are
     more likely to succeed. Together this plot shows that a direct imaging mission schedule
-    will have to decide on whether it is worth assuming large amounts of exozodiacal dust
+    will have to decide whether it is worth assuming large amounts of exozodiacal dust
     to guarantee observations are successful or if it is more important to detect as many
     planets as possible while potentially missing planets in dusty planetary systems.
   }
@@ -708,7 +713,7 @@ total yield of the mission.
 
 \section{Conclusion}
 
-In this chapter we have demonstrated a method of using constraint programming
+In this chapter, we have demonstrated a method of using constraint programming
 to calculate an observing schedule that allows for dynamic variations in the
 integration time and observation time for every planet with precursor radial
 velocity data. To validate the scheduler we created a tool called
@@ -716,7 +721,7 @@ velocity data. To validate the scheduler we created a tool called
 fitting process, calculates the probability of detection for a given orbit fit
 and direct imaging telescope, schedules observations based on that data, and
 then uses mission simulation software to test the scheduled observations. We
-showed that our scheduler dramatically out performs a random walk scheduler.
+showed that our scheduler dramatically outperforms a random walk scheduler.
 This work proves that we can use the probability of detection metric to
 schedule direct imaging observations of exoplanets detected via radial velocity
 and it shows how precursor data can be incorporated in direct imaging mission
@@ -731,9 +736,9 @@ simple setup in this chapter: a single survey, no bad weather, only
 planets in the habitable zone, and RV observations were continued until the
 direct imaging mission launch. Future work will be on more complicated
 scenarios, such as: how many EPRV observations of a planetary system are
-required to accurately calculate probability of detection, how does the
+required to accurately calculate probability of detection, how the
 planetary occurrence rate model impact which planets are ultimately fitted via
-radial velocity, how do different RV orbit fitting tools compare, what
+radial velocity, how different RV orbit fitting tools compare, what
 synergies exist when scheduling both RV and direct imaging observations for a
 combined target list.
 
