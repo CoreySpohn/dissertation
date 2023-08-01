@@ -592,13 +592,37 @@ to be observed 3 times when possible. Then we set the minimum required wait
 time to re-observe a star to 10 days and the maximum required wait time to a
 quarter of a year. The scheduler was allowed to run for two hours.
 
+Showing a full schedule for all the entire NETS target list is visually
+difficult so an example schedule was created using only the first 25 target
+stars, shown in \Cref{fig:schedule}. All parameters described previously apply
+to \Cref{fig:schedule} except the target list. In the scenario shown 15 of the
+29 planets were detected at least once, 42 of the 55 observations were
+successful, and 157.75 days of integration time were used out of the allowed
+two years.
+
 \begin{figure}
   \begin{center}
-    \includegraphics[height=0.9\textheight]{ch4/figures/full_schedule_3.pdf}
+    \includegraphics[width=1\textwidth]{ch4/figures/full_schedule_3.pdf}
   \end{center}
   \caption{
-    Schedule created based fits of 3 cm/s EPRV data on 97 stars populated with
-    Earth-like planets. (Remaking this plot today, harder to change than the others).
+    An example schedule for an HWO-like direct imaging mission created based on
+    RV fits of 3 cm/s EPRV data on the first 25 stars of the NETS target list.
+    Please note that this is only an example schedule on a quarter of the stars
+    used for the full mission simulations shown in \Cref{fig:randomwalkhist}.
+    The plot shows the scheduler successfully using the probability of
+    detection information to find over half of the planets in the simulation.
+    Each row represents an individual planet's probability of detection and the
+    color scale represents the probability of detection with bright yellow
+    representing a high probability of detection. Within a row, the probability
+    of detection is shown for the allowed integration times with the shortest
+    integration time at the top and longest integration time at the bottom of
+    the row. A white row represents a planet that is in the simulation but was
+    not fitted with the simulated RV data. Each box represents an observation,
+    a black box is a successful observation, a red box is an observation that
+    failed because the planet did not reach the required SNR, and a yellow box
+    is an observation that failed because the planet was not in the
+    instrument's field of view. The horizontal length of the box represents the
+    integration time used for the observation.
   }
   \label{fig:schedule}
 \end{figure}
@@ -622,12 +646,6 @@ unique planets detected three or more times during the course of the two year
 mission which is a strong result for orbit fitting purposes.}
   \label{fig:randomwalkhist}
 \end{figure}
-
-TODO FIX THIS TO NEW SCHEDULE PLOT
-An example schedule is shown in \Cref{fig:schedule}, where 42 of the 112
-planets were detected at least once, 124 observations were scheduled, and 98 of
-the scheduled observations were successful. In total the scheduler used 423
-days of integration time out of the allowed two years. 
 
 It is difficult to find
 an analogous comparison in literature to the case we are showing, as previous
@@ -700,7 +718,7 @@ total yield of the mission.
     \includegraphics[width=0.9\textwidth]{ch4/figures/succes_rate_vs_percent_detected.pdf}
   \end{center}
   \caption{
-    Impact of assumption on $\sigma$ and exozodi on scheduler results. The left plot shows
+    The impact of assumption on $\sigma$ and exozodi on scheduler results. The left plot shows
     that for high assumed values of $n_\textrm{EZ}$ the number of planets detected decreases.
     The right plot shows that when high values of $n_\textrm{EZ}$ are used observations are
     more likely to succeed. Together this plot shows that a direct imaging mission schedule
