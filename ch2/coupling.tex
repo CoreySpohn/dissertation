@@ -75,15 +75,15 @@ Ultimately we show the ten highest completeness planets for the Roman CGI.
 The optical system laid out in \citet{keithlyOptimalScheduling2020} to create
 \Cref{eq:dean_dmag}, based on the work of Bijan Nemati for the Roman CGI
 \citep{Nemati2014, nematiSensitivityWFIRST2017, Nemati2020a}, works on the
-assumption that the noise sources included in $r_{n}$ have no
-dependence on the planet's $\Delta\textrm{mag}$. However, in newer formulations
-of the Roman CGI exposure time calculator (ETC), there is such a dependence. Every
-frame results in readout and clock-induced charge noise, and a brighter signal
-will require a shorter exposure time per frame, resulting in more total frames
-and therefore more total readout and clock-induced charge noise. The newer form
-of the ETC is implemented in the \code{EXOSIMS} package's \code{Nemati\_2019}
-module \citep{savranskyWFIRSTAFTACoronagraphScience2015} which is an adaptation
-of the Roman CGI team's internal ETC.
+assumption that the noise sources included in $r_{n}$ have no dependence on the
+planet's $\Delta\textrm{mag}$. However, in newer formulations of the Roman CGI
+exposure time calculator (ETC), there is such a dependence. Every frame results
+in readout and clock-induced charge noise, and a brighter signal will require a
+shorter exposure time per frame, resulting in more total frames and therefore
+more total readout and clock-induced charge noise. The newer form of the ETC is
+implemented in the \code{EXOSIMS}
+\citep{savranskyWFIRSTAFTACoronagraphScience2015} package's \code{Nemati\_2019}
+module which is an adaptation of the Roman CGI team's internal ETC.
 
 \begin{figure}
   \begin{center}
@@ -177,7 +177,7 @@ detector pixels that the planet signal covers, $q_{\textrm{CIC}}$ is the CCD
 clock-induced charge, $t_{\textrm{fr}}$ is the frame duration,
 $\sigma_{\textrm{rd}}$ is read noise, and $G_{\textrm{EM}}$ is the electron
 multiplication gain. $\sigma_{\textrm{det}}^2$ is one of the four random noise
-components for the target star in $C_{\textrm{b},i}$ (see \citet{Nemati2020a}
+components for the target star in $r_{n}$ (see \citet{Nemati2020a}
 for more details). The $1/t_{\textrm{fr}}$ terms in
 \Cref{eq:rdet} represent that the $q_\textrm{CIC}$
 and $\sigma_\textrm{rd}$ terms are dependent on how many frames are taken over
@@ -195,7 +195,7 @@ number of cosmic ray hits per frame and the charge transfer efficiency. Those
 end up impacting the detector degradation which then impacts all count
 rates. 
 By making $r_n$ a complex function of $r_\textrm{pl}$ we are unable to isolate
-it as a function of SNR, $r_n$, $r_{\Delta I}$, and $t$ analytically. Therefore
+$r_\textrm{pl}$ as a function of SNR, $r_n$, $r_{\Delta I}$, and $t$ analytically. Therefore
 to calculate the $\Delta\textrm{mag}_0$ for a specific observing scenario we
 need to invert the relationship numerically.
 
@@ -243,7 +243,7 @@ $f\left(\Delta\textrm{mag}, i\right)$ has two minima, as shown on the right plot
 \Cref{fig:ETC_dMag_function}. As we are looking for
 $\Delta\textrm{mag}_0$, our goal is to converge to the larger of the local
 $\Delta\textrm{mag}$ minima. The lower of the minima is caused by the model for
-$C_b$ increasing exponentially as $\Delta\textrm{mag}$ goes to zero. The target
+$r_n$ increasing exponentially as $\Delta\textrm{mag}$ goes to zero. The target
 star's V magnitude affects the location where the slope changes, which can be
 seen in \Cref{fig:ETC_dMag_function} where the line colors represent the V
 magnitude.
@@ -259,7 +259,7 @@ $\Delta\textrm{mag}_\textrm{sat}$ as the upper bound for our minimization,
 $\Delta\textrm{mag}_{ub}$. The $\Delta\textrm{mag}_{ub}$ can be found by
 running root finding on 
 \begin{equation}
-  C_{\textrm{p}} - \left(\textrm{SNR} \cdot C_{\textrm{sp}}\right)^2
+  r_{\textrm{pl}} - \left(\textrm{SNR} \cdot r_{\Delta I}\right)^2
   \label{eq:sat_root}
 \end{equation}
 for different values of $\Delta\textrm{mag}$.
@@ -270,7 +270,7 @@ times are strictly increasing so that the minimization doesn't converge to the
 lower bound because it is approaching the lower $\Delta\textrm{mag}$ minima. As
 a heuristic, we begin with
 \begin{equation}
-  \Delta\textrm{mag}_{lb}(i) = \Delta\textrm{mag}_{ub}(i) - 2 - V(i)
+  \Delta\textrm{mag}_{lb}(i) = \Delta\textrm{mag}_{ub}(i) - 2 - \nu_i
   \label{eq:dMag_lb}
 \end{equation}
 which resulted in convergence for the minimization in over 99\% of cases for
