@@ -86,16 +86,17 @@ target list is restricted to only consider low variability stars
 \section{Methods}
 To incorporate precursor data realistically we must create synthetic planetary
 systems around the stars in the simulation, simulate the collection of RV data,
-do blind orbit fitting of the RV data to create fits for scheduling, calculate the
-probability of detection for each fitted planet during the direct imaging mission, 
-use the probability of detection information to create a direct imaging
-observation schedule, and finally simulate the mission using a direct imaging
-mission simulator. The major code pieces are \code{EXOSIMS} for planet
+do blind orbit fitting of the RV data to create fits for scheduling, calculate
+the probability of detection for each fitted planet during the direct imaging
+mission, use the probability of detection information to create a direct
+imaging observation schedule, and finally simulate the mission using a direct
+imaging mission simulator. The major code pieces are \code{EXOSIMS} for planet
 generation and direct imaging observation simulations, \code{RVSearch} for
-blind fitting RV data, and the new Python package \code{RVtoImaging} that
-handles RV data generation, generating probability of detection data, and
-scheduling direct imaging observations. An overview of the software workflow is
-shown in \Cref{fig:rv2imgflowchart}.
+blind fitting RV data, and the new Python package \code{RVtoImaging}
+(\url{github.com/SIOSlab/RVtoImaging}) that handles RV data generation,
+generating probability of detection data, and scheduling direct imaging
+observations. An overview of the software workflow is shown in
+\Cref{fig:rv2imgflowchart}.
 
 \begin{figure}
   \begin{center}
